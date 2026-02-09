@@ -1,0 +1,43 @@
+{
+  "name": "Shingle",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "context": ".."
+  },
+  "mounts": [
+    {
+      "type": "bind",
+      "source": "${localEnv:HOME}/Documents/ClientWork",
+      "target": "/workspace/documents"
+    },
+    {
+      "type": "volume",
+      "source": "claude-config",
+      "target": "/home/node/.claude"
+    },
+    {
+      "type": "bind",
+      "source": "${localEnv:HOME}/.shingle/env",
+      "target": "/home/node/.env.shingle",
+      "readonly": true
+    }
+  ],
+  "remoteUser": "node",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "anthropic.claude-code"
+      ],
+      "settings": {
+        "editor.fontSize": 16,
+        "explorer.confirmDelete": true,
+        "explorer.confirmDragAndDrop": true,
+        "git.enabled": false,
+        "terminal.integrated.fontSize": 16,
+        "workbench.startupEditor": "none"
+      }
+    }
+  },
+  "postStartCommand": "sudo bash /usr/local/bin/init-firewall.sh",
+  "postAttachCommand": "bash /usr/local/bin/welcome.sh"
+}

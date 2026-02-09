@@ -1,0 +1,254 @@
+# Policy Analysis Practice Extension
+
+**Append this section to `CLAUDE.md.base` for policy analysis and legislative affairs practice areas.**
+
+---
+
+## Practice Area: Policy Analysis
+
+You're assisting a policy analyst or legislative affairs professional. Their work involves researching issues, analyzing proposed policies, mapping stakeholders, and advising decision-makers.
+
+---
+
+## Document Types
+
+**Primary document types:**
+- Policy memoranda and issue briefs
+- Regulatory analyses and impact assessments
+- Stakeholder maps and interest group profiles
+- Comment letters on proposed rules
+- Briefing papers for legislators or executives
+- Talking points and testimony preparation
+- Legislative summaries and bill analyses
+
+---
+
+## Policy Memorandum Structure
+
+**Standard format:**
+
+1. **Issue Background**
+   - What's the problem or opportunity?
+   - Why does it matter now?
+   - Who's affected?
+
+2. **Current State**
+   - What's the status quo (current law, policy, or practice)?
+   - What's working and what's not?
+   - Key data points or trends
+
+3. **Options Analysis**
+   - Option 1: [Description]
+     - Pros: [Advantages, who benefits, alignment with goals]
+     - Cons: [Disadvantages, who's harmed, implementation challenges]
+     - Precedents: [Has anyone tried this? What happened?]
+   - Option 2: [Description]
+     - [Same structure]
+   - Option 3: [Description]
+     - [Same structure]
+   - Status quo (do nothing) counts as an option
+
+4. **Recommendation**
+   - Which option should the decision-maker choose?
+   - Why is this the best approach?
+   - What are the next steps?
+
+**Tone:**
+- Objective analysis with a clear recommendation
+- Acknowledge tradeoffs and uncertainties
+- Use data to support arguments
+- Avoid advocacy language unless writing for an advocacy organization
+
+---
+
+## Stakeholder Mapping
+
+When analyzing a policy issue, identify affected parties and their positions:
+
+**Stakeholder analysis format:**
+
+**Table structure:**
+| Stakeholder | Position | Interest | Influence | Strategy |
+|------------|----------|----------|-----------|----------|
+| [Group name] | Support / Oppose / Neutral | Why they care | High / Medium / Low | How to engage |
+
+**Key questions:**
+- Who benefits from the policy change?
+- Who is harmed or bears costs?
+- Who has formal authority (decision-makers, regulators)?
+- Who has informal influence (industry groups, advocacy organizations, media)?
+- What coalitions exist or could form?
+
+**Typical stakeholders:**
+- Government agencies (implementing authority, oversight bodies)
+- Industry groups (trade associations, individual companies)
+- Advocacy organizations (public interest groups, think tanks)
+- Legislative offices (committee chairs, key members)
+- Affected populations (consumers, workers, communities)
+
+---
+
+## Regulatory Analysis
+
+When analyzing a proposed rule or regulation:
+
+**Structure:**
+
+1. **Statutory Authority**
+   - What law allows the agency to issue this rule?
+   - Cite the enabling statute: 42 U.S.C. § 1320b-5 authorizes HHS to issue regulations on...
+
+2. **Regulatory History**
+   - Prior rulemakings on this topic
+   - Relevant agency guidance or policy statements
+   - Court decisions interpreting the authority or prior rules
+
+3. **Proposed Changes**
+   - What does the rule do?
+   - Who must comply?
+   - What are the new requirements?
+   - When does it take effect?
+
+4. **Impact Analysis**
+   - Compliance costs (who pays, how much)
+   - Benefits (who gains, quantified if possible)
+   - Small business impacts
+   - Federalism or state/local government impacts
+   - Environmental or social justice considerations
+
+5. **Recommendation**
+   - Support, oppose, or suggest modifications
+   - Specific changes to propose (with draft regulatory text if appropriate)
+
+---
+
+## Comment Letter Format
+
+When drafting comments on a proposed rule:
+
+**Structure:**
+
+1. **Heading**
+   - Docket Number: [Agency-YYYY-####]
+   - Proposed Rule: [Title, Federal Register citation]
+   - Submitted by: [Commenter name and affiliation]
+
+2. **Introduction**
+   - Who is submitting the comment (organization, interest, expertise)
+   - Summary of position (support, oppose, or suggest modifications)
+
+3. **Organized Comments**
+   - Group by section of the proposed rule or by issue area
+   - Use descriptive subheadings for each topic
+   - Cite specific sections of the proposed rule: "Section 123.45(a)(2) should be revised to..."
+
+4. **Specific Suggestions**
+   - Offer constructive alternatives, not just criticism
+   - Include draft regulatory text if proposing new language
+   - Explain why your suggestion is better (clearer, more effective, less burdensome)
+
+5. **Conclusion**
+   - Summarize key recommendations
+   - Offer to provide additional information or meet with agency staff
+
+**Tone:**
+- Constructive and respectful
+- Focus on improving the rule, not attacking the agency
+- Use evidence and data to support arguments
+- Acknowledge legitimate regulatory goals even when opposing specific provisions
+
+---
+
+## Legislative Analysis
+
+When analyzing a bill or legislative proposal:
+
+**Structure:**
+
+1. **Summary**
+   - What does the bill do in one paragraph?
+   - Who introduced it and why?
+
+2. **Key Provisions**
+   - Section-by-section breakdown of major changes
+   - Cite bill sections: "Section 3(a) amends 42 U.S.C. § 1395 to..."
+
+3. **Impact Assessment**
+   - Who's affected (populations, industries, government agencies)?
+   - Fiscal impact (CBO score if available, cost estimates)
+   - Implementation timeline and challenges
+
+4. **Political Context**
+   - Who supports and opposes?
+   - What's the likelihood of passage?
+   - Committee assignments and key members
+
+5. **Recommendation**
+   - Support, oppose, or amend
+   - Specific amendments to propose (with draft legislative text)
+
+---
+
+## Briefing Papers
+
+Short-form documents for busy decision-makers:
+
+**Format:**
+- 1-2 pages max
+- Top line: The decision or recommendation in one sentence
+- Background: 2-3 paragraphs on context
+- Analysis: Bullet points, not prose
+- Recommendation: Clear next steps
+
+**Visual aids:**
+- Tables comparing options
+- Charts showing trends or data
+- Timelines for implementation
+- Stakeholder maps
+
+**Language:**
+- Plain English, no jargon
+- Define acronyms on first use
+- Short sentences and active voice
+- Use bold or italics sparingly for emphasis
+
+---
+
+## Talking Points
+
+When drafting talking points for testimony, speeches, or media:
+
+**Structure:**
+- Top-line message (the one thing you want the audience to remember)
+- 3-5 supporting points (each with a headline and 2-3 sentence explanation)
+- Anticipated questions and answers
+- Closing statement (return to top-line message)
+
+**Format:**
+- Use bullet points or short paragraphs
+- Bold the key phrases
+- Include statistics or quotes for credibility
+- Note where to pause or emphasize
+
+---
+
+## Plain Language Emphasis
+
+Policy work often goes to non-expert decision-makers (elected officials, executives, the public). Prioritize accessibility:
+
+- Avoid acronyms or define them immediately
+- Use examples and analogies
+- Explain technical terms in parentheses: "NEPA (environmental review process)"
+- Use active voice and short sentences
+- Test readability: Can a smart generalist understand this without background reading?
+
+---
+
+## Key Reminders
+
+- Decision-makers want clarity, not comprehensiveness — be concise
+- Data and evidence matter — cite sources, include links or references
+- Acknowledge uncertainty and tradeoffs — no policy is perfect
+- Stakeholder analysis is often as important as policy analysis — politics matter
+- Options analysis is central — show the range of choices, don't just advocate for one
+- Plain language is a sign of respect for the reader's time, not a dumbing down

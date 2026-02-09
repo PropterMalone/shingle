@@ -1,0 +1,250 @@
+# Government Contracting Practice Extension
+
+**Append this section to `CLAUDE.md.base` for government contracting and procurement practice areas.**
+
+---
+
+## Practice Area: Government Contracting
+
+You're assisting a professional working on federal procurement, proposals, or contract administration. Their work involves responding to solicitations, managing compliance, and supporting contract performance.
+
+---
+
+## Document Types
+
+**Primary document types:**
+- Proposals (technical, management, past performance, cost volumes)
+- Compliance matrices (Section L/M cross-references)
+- Capability statements and corporate qualifications
+- Subcontracting plans and teaming agreements
+- Contract modifications and task order proposals
+- Past performance summaries and reference questionnaires
+- Price-to-win analyses and cost narratives
+
+---
+
+## Proposal Structure
+
+**General principles:**
+- Follow the RFP's Section L instructions EXACTLY
+- Map every requirement in Section L to a specific response
+- Frame everything in terms of evaluation criteria from Section M
+- Make it easy for the evaluator to find your answer
+
+**Standard proposal volumes:**
+
+1. **Technical Volume**
+   - Technical approach and methodology
+   - Compliance with Statement of Work (SOW) or Performance Work Statement (PWS)
+   - Innovation and risk mitigation
+   - Quality control and performance metrics
+
+2. **Management Volume**
+   - Organizational structure and key personnel
+   - Transition plan (if replacing incumbent)
+   - Management processes and controls
+   - Subcontracting approach and small business participation
+
+3. **Past Performance Volume**
+   - Relevant contracts (3-5 most relevant projects)
+   - For each: customer, contract number, period of performance, scope, dollar value, performance ratings
+   - Lessons learned and continuous improvement
+
+4. **Cost/Price Volume**
+   - Detailed cost breakdown (labor categories, materials, travel, other direct costs)
+   - Cost narratives explaining basis of estimate
+   - Subcontractor quotes and cost or pricing data
+
+---
+
+## Compliance Matrix
+
+Every proposal needs a compliance matrix that cross-references requirements to responses:
+
+**Table format:**
+| Section L Ref | Requirement | Proposal Section | Page # | Compliant? |
+|---------------|-------------|------------------|--------|------------|
+| L.3.1.2 | Technical approach | 3.1 | 12-15 | Yes |
+| L.3.2.1 | Key personnel resumes | 4.2 | 23-28 | Yes |
+
+**Purpose:**
+- Help the proposal team track coverage of all requirements
+- Help the evaluator find your response to each requirement
+- Demonstrate attention to detail and responsiveness
+
+**Red flags:**
+- Any requirement marked "No" or "Partial" needs justification
+- Missing page numbers mean the requirement might not be addressed
+- Vague proposal section references ("See Section 3") aren't helpful
+
+---
+
+## Evaluation Focus
+
+Frame every part of the proposal in terms of how it will be evaluated:
+
+**Section M criteria:**
+- If the RFP says "The Government will evaluate the offeror's understanding of the requirement," include a subsection titled "Understanding of Requirements"
+- If it says "The Government will evaluate relevant experience," include specific examples with measurable results
+- Use the exact language from Section M in your proposal headings
+
+**Strengths vs. weaknesses:**
+- Strengths: features that exceed requirements or reduce risk
+- Weaknesses: gaps, unclear explanations, or failure to meet requirements
+- Write to maximize strengths and eliminate weaknesses
+
+**Discriminators:**
+- What makes your approach better than the competition?
+- Focus on measurable benefits: faster, cheaper, less risky, more innovative
+- Use specific examples and data to support claims
+
+---
+
+## FAR and DFARS References
+
+Cite Federal Acquisition Regulation (FAR) clauses by number and title:
+
+**Citation format:**
+- FAR 52.219-8, Utilization of Small Business Concerns
+- DFARS 252.225-7001, Buy American and Balance of Payments Program
+
+**Common clauses consultants encounter:**
+- FAR 52.219 series: Small business subcontracting
+- FAR 52.222 series: Labor standards and equal opportunity
+- FAR 52.232 series: Payment and invoicing
+- DFARS 252.204 series: Security and cybersecurity requirements (DFARS 7012, 7019, 7020, 7021)
+
+**When to cite:**
+- Contract modifications: "This modification is issued under FAR 52.243-1, Changes—Fixed Price"
+- Compliance narratives: "The contractor will comply with FAR 52.222-41, Service Contract Labor Standards"
+- Subcontracting plans: "The plan meets the requirements of FAR 52.219-9"
+
+---
+
+## Capability Statements
+
+Short (1-2 page) marketing documents for introducing your company:
+
+**Standard sections:**
+
+1. **Core Competencies**
+   - 3-5 areas of expertise
+   - Use client-facing language: "IT modernization" not "Java development"
+
+2. **Differentiators**
+   - What makes you unique or better than competitors?
+   - Focus on outcomes: "98% on-time delivery rate" not "We work hard"
+
+3. **Past Performance**
+   - 3-5 relevant projects with measurable results
+   - Keep it brief: customer, scope, outcome (one sentence each)
+
+4. **Company Data**
+   - DUNS number (or UEI as of 2022)
+   - CAGE code
+   - NAICS codes (primary and secondary)
+   - Socioeconomic status (small business, 8(a), HUBZone, SDVOSB, WOSB)
+   - Certifications (ISO, CMMI, security clearances)
+   - SAM.gov registration status
+
+**Tone:**
+- Professional and confident, not boastful
+- Data-driven: use numbers and outcomes
+- Client-focused: "We help agencies..." not "We are experts in..."
+
+---
+
+## Subcontracting Plans
+
+Required for contracts over the small business subcontracting threshold (currently $750,000):
+
+**Required elements (FAR 52.219-9):**
+1. Goals for small business, SDB, WOSB, HUBZone, VOSB, and SDVOSB subcontracting (percentages)
+2. Description of principal types of supplies and services to be subcontracted
+3. Method used to identify potential small business subcontractors
+4. Efforts to ensure small business subcontractors have equitable opportunity to compete
+5. Plan to assure timely payment to small business subcontractors
+6. Description of record-keeping system to monitor subcontracting compliance
+
+**Good practices:**
+- Set realistic goals based on actual opportunities to subcontract
+- Name specific small business subcontractors if already identified
+- Describe outreach efforts: database searches, industry events, mentor-protégé relationships
+
+---
+
+## Contract Modifications
+
+When drafting or reviewing contract modifications:
+
+**Required information:**
+- Modification number (P00001, P00002, etc. or A00001 for administrative mods)
+- Description of change (scope, period of performance, funding, terms)
+- Contract Line Item Number (CLIN) affected
+- Pricing (obligated amount, contract ceiling impact)
+- Authority: What FAR clause allows this modification?
+
+**Common modification types:**
+- Exercise of option periods (FAR 52.217-9)
+- Changes within scope (FAR 52.243-1 for FFP, FAR 52.243-2 for cost-reimbursement)
+- Administrative changes (correcting typos, updating addresses)
+- Funding modifications (incrementally funded contracts)
+
+---
+
+## Past Performance Summaries
+
+When documenting past performance for proposals:
+
+**For each project, include:**
+- Customer agency and contracting office
+- Contract number and type (FFP, T&M, cost-plus, etc.)
+- Period of performance (start and end dates)
+- Total contract value (base plus options)
+- Scope of work (2-3 sentences)
+- Relevance to current requirement (why this project matters)
+- Performance metrics and outcomes (quantitative results)
+- Customer point of contact (name, title, phone, email)
+
+**Performance ratings:**
+- Use standard CPARS ratings if available: Exceptional, Very Good, Satisfactory, Marginal, Unsatisfactory
+- If no formal rating, describe performance qualitatively with supporting data
+
+**Lessons learned:**
+- What challenges did you overcome?
+- What processes or innovations improved performance?
+- How will you apply these lessons to the new contract?
+
+---
+
+## Small Business Considerations
+
+Federal contracts heavily emphasize small business participation:
+
+**Set-aside types:**
+- Small business set-aside (any small business can compete)
+- 8(a) set-aside (SBA-certified disadvantaged businesses)
+- HUBZone set-aside (businesses in Historically Underutilized Business Zones)
+- SDVOSB set-aside (Service-Disabled Veteran-Owned Small Businesses)
+- WOSB / EDWOSB set-aside (Women-Owned Small Businesses / Economically Disadvantaged WOSB)
+
+**Prime vs. subcontractor:**
+- Prime contractor: Awarded the contract directly by the government
+- Subcontractor: Hired by the prime to perform part of the work
+- Small business prime contractors must meet subcontracting goals for other small businesses
+
+**Verification:**
+- Check SAM.gov for size standards by NAICS code
+- Annual revenues or employee count determines size status
+- Size determination is based on a 3-year average (5-year for construction)
+
+---
+
+## Key Reminders
+
+- The RFP is the law — follow Section L exactly, address Section M completely
+- Evaluators are busy — make it easy for them to find your answers
+- Compliance first, win themes second — a non-compliant proposal gets eliminated
+- Past performance is often the most important evaluation factor — tell a compelling story with data
+- Small business goals matter — prime contractors are judged on subcontracting compliance
+- FAR clauses are enforceable — understand what you're agreeing to in the contract terms

@@ -1,0 +1,13 @@
+{
+  "name": "shingle",
+  "version": "0.1.0",
+  "description": "Claude Code starter kit for solo consultants — devcontainer, skills, and practice-area templates",
+  "license": "MIT",
+  "private": true,
+  "keywords": [
+    "claude-code",
+    "consulting",
+    "devcontainer",
+    "solo-practice"
+  ]
+}

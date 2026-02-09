@@ -1,0 +1,24 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node -e \"const input = JSON.parse(require('fs').readFileSync(0, 'utf-8')); const cmd = input.command || ''; if (cmd.match(/\\b(rm|rmdir|del|rd)\\s|\\b(rm|rmdir|del|rd)$/)) { console.log('⚠️  This command will delete files. Please confirm you want to proceed.'); process.exit(2); } process.exit(0);\""
+          }
+        ]
+      },
+      {
+        "matcher": "Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node -e \"const input = JSON.parse(require('fs').readFileSync(0, 'utf-8')); const path = input.file_path || ''; const normalized = path.replace(/\\\\\\\\/g, '/'); if (!normalized.includes('/workspace/documents/')) { console.log('⚠️  This would write a file outside your documents folder. Blocked for safety.'); process.exit(2); } process.exit(0);\""
+          }
+        ]
+      }
+    ]
+  }
+}

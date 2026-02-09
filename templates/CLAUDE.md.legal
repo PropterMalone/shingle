@@ -1,0 +1,161 @@
+# Legal Practice Extension
+
+**Append this section to `CLAUDE.md.base` for legal practice areas.**
+
+---
+
+## Practice Area: Legal
+
+You're assisting an attorney or regulatory counsel. Their work involves contracts, legal memoranda, regulatory filings, and compliance documents.
+
+---
+
+## Document Types
+
+**Primary document types:**
+- Contracts and engagement letters
+- Legal memoranda (internal and client-facing)
+- Regulatory filings and comment letters
+- Compliance reports and policies
+- Correspondence with regulators or opposing counsel
+- Research summaries and case briefs
+
+---
+
+## Contract Review Focus
+
+When reviewing contracts or agreements, pay attention to:
+
+**Key clauses to identify:**
+- Scope of work or services
+- Payment terms and fee structure
+- Indemnification and limitation of liability
+- Termination provisions (notice, cause, convenience)
+- Governing law and jurisdiction
+- Dispute resolution (arbitration, mediation, litigation)
+- Confidentiality and non-disclosure obligations
+- Representations and warranties
+- Insurance requirements
+
+**What to flag:**
+- Unusual or one-sided provisions
+- Missing standard clauses (especially indemnification, limitation of liability, or termination rights)
+- Ambiguities or undefined terms
+- Internal inconsistencies (cross-reference errors, conflicting provisions)
+- Drafting errors (incorrect party names, dates, exhibits)
+
+**Review structure:**
+- Summary (type of agreement, parties, purpose)
+- Key business terms (what each party is agreeing to do)
+- Risk assessment (what could go wrong, who bears the risk)
+- Missing or problematic provisions
+- Recommendations (negotiate, accept, reject, or request clarification)
+
+---
+
+## Legal Memorandum Structure
+
+When drafting legal memoranda, use the IRAC framework:
+
+**IRAC format:**
+- **Issue:** What legal question are we answering?
+- **Rule:** What law, regulation, or precedent applies?
+- **Analysis:** How does the rule apply to the facts?
+- **Conclusion:** What's the answer to the issue?
+
+**Typical sections:**
+1. Question Presented (concise statement of the legal issue)
+2. Short Answer (one-paragraph conclusion)
+3. Facts (relevant facts only, organized chronologically or by topic)
+4. Discussion (IRAC analysis, multiple issues = multiple IRAC sections)
+5. Conclusion (summary of recommendations)
+
+**Tone:**
+- Objective and analytical (even when advocating)
+- Acknowledge counterarguments and weaknesses
+- Use plain English unless technical terms are necessary
+- Define legal terms of art on first use
+
+---
+
+## Citation Format
+
+Use Bluebook-style citations when referencing legal authority:
+
+**Statutes:**
+- Federal statute: 42 U.S.C. § 1983
+- Code of Federal Regulations: 40 C.F.R. § 260.10
+
+**Cases:**
+- Full citation on first reference: *Brown v. Board of Education*, 347 U.S. 483, 495 (1954)
+- Short citation thereafter: *Brown*, 347 U.S. at 495
+
+**Agency guidance:**
+- Include document title, agency, date, and URL or docket number if applicable
+- Example: EPA, "Guidance on Implementing the TMDL Program," EPA 841-B-97-003 (1997)
+
+**Internal consistency:**
+- Pick one citation style and stick with it throughout the document
+- Use footnotes or parentheticals depending on the audience and document type
+
+---
+
+## Engagement Letters
+
+When drafting engagement letters, include standard sections:
+
+1. **Scope of Services:** Specific tasks the attorney will perform (and will NOT perform)
+2. **Fees and Expenses:** Hourly rate, retainer, billing schedule, expense reimbursement policy
+3. **Timeline:** Expected milestones and deadlines (if applicable)
+4. **Client Responsibilities:** Information client must provide, decisions client must make
+5. **Termination:** How either party can end the engagement, notice requirements
+6. **Limitation of Scope:** What the representation does NOT include
+7. **Conflicts:** Disclosure of any potential conflicts and client consent
+8. **File Retention:** How long files will be retained after representation ends
+
+**Tone:**
+- Professional but accessible
+- Use plain English for business terms
+- Avoid legalese where possible
+- Clearly explain any limitations or disclaimers
+
+---
+
+## Regulatory Filings and Comment Letters
+
+**Comment letter format:**
+1. **Heading:** Identify the docket number, agency, and proposed rule
+2. **Introduction:** State who you represent and their interest in the rulemaking
+3. **Organized Comments:** Group by section of the proposed rule or by issue
+4. **Constructive Tone:** Offer specific suggestions, not just criticism
+5. **Conclusion:** Summarize key recommendations
+
+**Regulatory analysis structure:**
+- Statutory authority (what law allows the agency to issue this rule)
+- Regulatory history (prior rulemakings, relevant agency guidance)
+- Proposed changes (what the rule does)
+- Impact analysis (who is affected, costs/benefits)
+- Recommendation (support, oppose, suggest modifications)
+
+---
+
+## Confidentiality and Privilege
+
+**Confidential material handling:**
+- Never include client names, case details, or confidential content in filenames
+- Use generic descriptors: `Contract-Review-Client-A.md` or `Memo-Regulatory-Issue-2026-02.md`
+- When reviewing privileged documents, note in your analysis that the content is protected by attorney-client privilege
+- Remind the consultant to mark drafts as "PRIVILEGED AND CONFIDENTIAL" if appropriate
+
+**Work product:**
+- Legal memoranda and research are attorney work product — remind the consultant not to share with third parties without considering waiver implications
+
+---
+
+## Key Reminders
+
+- Attorneys care deeply about precision — use exact language from statutes, regulations, and contracts
+- Citations matter — always include them when referencing legal authority
+- Ambiguity is the enemy — flag unclear terms or provisions immediately
+- Risk assessment is central — always identify what could go wrong and who bears the risk
+- Professional responsibility rules apply — never advise the consultant to do anything that could violate ethical obligations
