@@ -7,7 +7,7 @@ import { runPreflightChecks } from "./preflight.js";
 import { askApiKey, askPracticeArea } from "./prompts.js";
 import { scaffoldProject, ensureApiKeyFile, ensureClientWorkDir } from "./scaffold.js";
 
-function parseArgs(argv: string[]): { command: string; directory: string; practice: string | null } {
+export function parseArgs(argv: string[]): { command: string; directory: string; practice: string | null } {
   const args = argv.slice(2);
   let command = "";
   let directory = ".";
@@ -85,13 +85,15 @@ async function main(): Promise<void> {
   console.log(nextSteps(directory, selectedPractice));
 }
 
-main().catch((err: unknown) => {
-  console.error("");
-  console.error("  Something went wrong during setup:");
-  console.error(`  ${err instanceof Error ? err.message : String(err)}`);
-  console.error("");
-  console.error("  If this keeps happening, please open an issue at:");
-  console.error("  https://github.com/anthropics/shingle/issues");
-  console.error("");
-  process.exit(1);
-});
+if (!process.env["VITEST"]) {
+  main().catch((err: unknown) => {
+    console.error("");
+    console.error("  Something went wrong during setup:");
+    console.error(`  ${err instanceof Error ? err.message : String(err)}`);
+    console.error("");
+    console.error("  If this keeps happening, please open an issue at:");
+    console.error("  https://github.com/anthropics/shingle/issues");
+    console.error("");
+    process.exit(1);
+  });
+}

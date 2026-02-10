@@ -194,6 +194,8 @@ async function listAgencies(): Promise<ReadonlyArray<AgencyResponse>> {
 }
 
 export {
+  buildSearchUrl,
+  DOCUMENT_TYPE_MAP,
   searchDocuments,
   getDocument,
   searchExecutiveOrders,

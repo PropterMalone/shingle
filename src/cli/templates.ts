@@ -2030,7 +2030,7 @@ dist/
     "declaration": false
   },
   "include": ["src/**/*"],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", "src/**/*.test.ts"]
 }
 `,
 
@@ -2230,6 +2230,8 @@ async function listAgencies(): Promise<ReadonlyArray<AgencyResponse>> {
 }
 
 export {
+  buildSearchUrl,
+  DOCUMENT_TYPE_MAP,
   searchDocuments,
   getDocument,
   searchExecutiveOrders,
@@ -2413,6 +2415,7 @@ function formatAgencyList(
 }
 
 export {
+  truncateAbstract,
   formatSearchResults,
   formatDocumentDetail,
   formatExecutiveOrderResults,

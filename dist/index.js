@@ -6,6 +6,10 @@ var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
 var __getOwnPropNames = Object.getOwnPropertyNames;
 var __getProtoOf = Object.getPrototypeOf;
 var __hasOwnProp = Object.prototype.hasOwnProperty;
+var __export = (target, all) => {
+  for (var name in all)
+    __defProp(target, name, { get: all[name], enumerable: true });
+};
 var __copyProps = (to, from, except, desc) => {
   if (from && typeof from === "object" || typeof from === "function") {
     for (let key of __getOwnPropNames(from))
@@ -22,6 +26,14 @@ var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__ge
   isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
   mod
 ));
+var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
+
+// src/cli/index.ts
+var index_exports = {};
+__export(index_exports, {
+  parseArgs: () => parseArgs
+});
+module.exports = __toCommonJS(index_exports);
 
 // src/cli/messages.ts
 var BANNER = `
@@ -2179,7 +2191,7 @@ dist/
     "declaration": false
   },
   "include": ["src/**/*"],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", "src/**/*.test.ts"]
 }
 `,
   "plugin/servers/federal-register/src/api.ts": `const BASE_URL = "https://www.federalregister.gov/api/v1";
@@ -2378,6 +2390,8 @@ async function listAgencies(): Promise<ReadonlyArray<AgencyResponse>> {
 }
 
 export {
+  buildSearchUrl,
+  DOCUMENT_TYPE_MAP,
   searchDocuments,
   getDocument,
   searchExecutiveOrders,
@@ -2560,6 +2574,7 @@ function formatAgencyList(
 }
 
 export {
+  truncateAbstract,
   formatSearchResults,
   formatDocumentDetail,
   formatExecutiveOrderResults,
@@ -2928,13 +2943,19 @@ async function main() {
   ensureClientWorkDir();
   console.log(nextSteps(directory, selectedPractice));
 }
-main().catch((err) => {
-  console.error("");
-  console.error("  Something went wrong during setup:");
-  console.error(`  ${err instanceof Error ? err.message : String(err)}`);
-  console.error("");
-  console.error("  If this keeps happening, please open an issue at:");
-  console.error("  https://github.com/anthropics/shingle/issues");
-  console.error("");
-  process.exit(1);
+if (!process.env["VITEST"]) {
+  main().catch((err) => {
+    console.error("");
+    console.error("  Something went wrong during setup:");
+    console.error(`  ${err instanceof Error ? err.message : String(err)}`);
+    console.error("");
+    console.error("  If this keeps happening, please open an issue at:");
+    console.error("  https://github.com/anthropics/shingle/issues");
+    console.error("");
+    process.exit(1);
+  });
+}
+// Annotate the CommonJS export names for ESM import in node:
+0 && (module.exports = {
+  parseArgs
 });

@@ -168,6 +168,7 @@ function formatAgencyList(
 }
 
 export {
+  truncateAbstract,
   formatSearchResults,
   formatDocumentDetail,
   formatExecutiveOrderResults,

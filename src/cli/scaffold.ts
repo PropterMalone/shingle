@@ -8,7 +8,7 @@ import { fileAction } from "./messages.js";
 
 type FileAction = "created" | "unchanged" | "updated";
 
-function writeFileIfChanged(filePath: string, content: string): FileAction {
+export function writeFileIfChanged(filePath: string, content: string): FileAction {
   const dir = path.dirname(filePath);
   if (!fs.existsSync(dir)) {
     fs.mkdirSync(dir, { recursive: true });
