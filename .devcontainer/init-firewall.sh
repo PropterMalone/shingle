@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Shingle network firewall — only allow Anthropic API, npm registry, and DNS
+# Shingle network firewall — only allow Anthropic API, npm registry, Federal Register, and DNS
 set -euo pipefail
 
 # Only run if iptables is available (skip on hosts without it)
