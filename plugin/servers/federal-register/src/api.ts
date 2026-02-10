@@ -2,8 +2,6 @@ const BASE_URL = "https://www.federalregister.gov/api/v1";
 const DEFAULT_PER_PAGE = 10;
 const THROTTLE_MS = 200;
 
-let lastRequestTime = 0;
-
 // --- Response types ---
 
 type DocumentAgency = {
@@ -81,14 +79,19 @@ const DOCUMENT_TYPE_MAP: Record<string, string> = {
   presidential_document: "PRESDOCU",
 };
 
-async function throttle(): Promise<void> {
-  const now = Date.now();
-  const elapsed = now - lastRequestTime;
-  if (elapsed < THROTTLE_MS) {
-    await new Promise<void>((resolve) => setTimeout(resolve, THROTTLE_MS - elapsed));
-  }
-  lastRequestTime = Date.now();
+function createThrottle(intervalMs: number): () => Promise<void> {
+  let lastRequestTime = 0;
+  return async (): Promise<void> => {
+    const now = Date.now();
+    const elapsed = now - lastRequestTime;
+    if (elapsed < intervalMs) {
+      await new Promise<void>((resolve) => setTimeout(resolve, intervalMs - elapsed));
+    }
+    lastRequestTime = Date.now();
+  };
 }
+
+const throttle = createThrottle(THROTTLE_MS);
 
 async function fetchJson<T>(url: string): Promise<T> {
   await throttle();
