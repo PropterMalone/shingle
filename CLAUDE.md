@@ -27,6 +27,20 @@ templates/          # CLAUDE.md templates per practice area
 docs/               # User-facing documentation
 ```
 
+## Target User
+
+- **Has used** ChatGPT or similar through a web chat interface
+- **Has not used** a CLI, terminal, or anything like Claude Code
+- **Don't explain** what AI is, how prompting works, or that AI can write — they already know
+- **Do explain** the terminal, why they're typing instead of clicking, and what files/folders are in this context
+
+**Value proposition:** Not "AI can help with documents" — ChatGPT does that. The new thing is what Claude Code specifically does:
+- **Files appear on your machine.** `/review` creates a real file in your folder. No copy-paste from a chat window.
+- **It builds tools for itself.** Describe a workflow once, CC writes a skill that repeats it.
+- **It calls functions.** It reads directories, moves files, runs commands — it *operates*, not just talks.
+
+The audience already knows AI can write. What's new is AI that acts on their machine.
+
 ## Conventions
 
 - **Audience:** All user-facing text assumes zero terminal experience. No jargon.
