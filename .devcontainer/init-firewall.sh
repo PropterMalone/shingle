@@ -22,7 +22,7 @@ iptables -A OUTPUT -p tcp --dport 53 -j ACCEPT
 iptables -A OUTPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
 
 # Resolve and allow specific hosts
-for host in api.anthropic.com registry.npmjs.org statsig.anthropic.com; do
+for host in api.anthropic.com registry.npmjs.org statsig.anthropic.com www.federalregister.gov; do
   for ip in $(dig +short "$host" 2>/dev/null); do
     iptables -A OUTPUT -d "$ip" -p tcp --dport 443 -j ACCEPT
   done
@@ -31,4 +31,4 @@ done
 # Default: drop everything else
 iptables -A OUTPUT -j DROP
 
-echo "[firewall] Network locked down — only Anthropic API, npm, and DNS allowed"
+echo "[firewall] Network locked down — only Anthropic API, npm, Federal Register, and DNS allowed"
