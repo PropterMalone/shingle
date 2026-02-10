@@ -1,0 +1,6 @@
+{
+  "federal-register": {
+    "command": "node",
+    "args": ["${CLAUDE_PLUGIN_ROOT}/servers/federal-register/dist/index.js"]
+  }
+}
