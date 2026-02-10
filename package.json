@@ -3,11 +3,30 @@
   "version": "0.1.0",
   "description": "Claude Code starter kit for solo consultants — devcontainer, skills, and practice-area templates",
   "license": "MIT",
-  "private": true,
   "keywords": [
     "claude-code",
     "consulting",
     "devcontainer",
     "solo-practice"
-  ]
+  ],
+  "bin": {
+    "shingle": "./dist/index.js"
+  },
+  "files": [
+    "dist/index.js"
+  ],
+  "scripts": {
+    "build": "tsup src/cli/index.ts --format cjs --out-dir dist --clean --no-splitting",
+    "type-check": "tsc --noEmit",
+    "dev": "tsx src/cli/index.ts"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "devDependencies": {
+    "@types/node": "^25.2.2",
+    "tsup": "^8.0.0",
+    "tsx": "^4.0.0",
+    "typescript": "^5.4.0"
+  }
 }
