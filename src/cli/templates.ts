@@ -121,6 +121,13 @@ RUN chmod +x /usr/local/bin/init-firewall.sh /usr/local/bin/welcome.sh
 # Copy plugin and templates into the image
 COPY plugin /home/node/.shingle-plugin
 COPY templates /home/node/.shingle-templates
+
+# Build Federal Register MCP server (install deps, compile, prune dev deps)
+RUN cd /home/node/.shingle-plugin/servers/federal-register \\
+    && npm install \\
+    && npx tsc \\
+    && npm prune --production
+
 RUN chown -R node:node /home/node/.shingle-plugin /home/node/.shingle-templates
 
 # Switch to node user
