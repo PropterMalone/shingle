@@ -310,7 +310,7 @@ WELCOME
 `,
 
   ".devcontainer/init-firewall.sh": `#!/usr/bin/env bash
-# Shingle network firewall — only allow Anthropic API, npm registry, and DNS
+# Shingle network firewall — only allow Anthropic API, npm registry, Federal Register, and DNS
 set -euo pipefail
 
 # Only run if iptables is available (skip on hosts without it)
@@ -2022,6 +2022,8 @@ dist/
     "outDir": "./dist",
     "rootDir": "./src",
     "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "noPropertyAccessFromIndexSignature": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
@@ -2276,7 +2278,7 @@ function formatSearchResults(
   const lines: Array<string> = [];
   lines.push(
     \`Found \${response.count} document\${response.count === 1 ? "" : "s"} \` +
-    \`(showing page \${currentPage} of \${response.total_pages}):\n\`,
+    \`(showing page \${currentPage} of \${response.total_pages}):\\n\`,
   );
 
   for (const doc of response.results) {
@@ -2298,13 +2300,13 @@ function formatSearchResults(
     );
   }
 
-  return lines.join("\n");
+  return lines.join("\\n");
 }
 
 function formatDocumentDetail(doc: Readonly<DocumentResult>): string {
   const lines: Array<string> = [];
 
-  lines.push(\`**\${doc.title}**\n\`);
+  lines.push(\`**\${doc.title}**\\n\`);
   lines.push(\`Type: \${doc.type}\`);
   lines.push(\`Agency: \${formatAgencyNames(doc.agencies)}\`);
   lines.push(\`Published: \${doc.publication_date}\`);
@@ -2333,14 +2335,14 @@ function formatDocumentDetail(doc: Readonly<DocumentResult>): string {
 
   lines.push("");
   if (doc.abstract) {
-    lines.push(\`**Abstract:**\n\${doc.abstract}\`);
+    lines.push(\`**Abstract:**\\n\${doc.abstract}\`);
     lines.push("");
   }
 
   lines.push(\`Federal Register: \${doc.html_url}\`);
   if (doc.pdf_url) lines.push(\`PDF: \${doc.pdf_url}\`);
 
-  return lines.join("\n");
+  return lines.join("\\n");
 }
 
 function formatExecutiveOrderResults(
@@ -2357,7 +2359,7 @@ function formatExecutiveOrderResults(
   const lines: Array<string> = [];
   lines.push(
     \`Found \${response.count} executive order\${response.count === 1 ? "" : "s"} \` +
-    \`(showing page \${currentPage} of \${response.total_pages}):\n\`,
+    \`(showing page \${currentPage} of \${response.total_pages}):\\n\`,
   );
 
   for (const doc of response.results) {
@@ -2381,14 +2383,14 @@ function formatExecutiveOrderResults(
     );
   }
 
-  return lines.join("\n");
+  return lines.join("\\n");
 }
 
 function formatAgencyList(
   agencies: ReadonlyArray<Readonly<AgencyResponse>>,
 ): string {
   const lines: Array<string> = [];
-  lines.push(\`\${agencies.length} federal agencies:\n\`);
+  lines.push(\`\${agencies.length} federal agencies:\\n\`);
 
   const topLevel = agencies.filter((a) => a.parent_id === null);
   const subAgencyCount = agencies.length - topLevel.length;
@@ -2402,12 +2404,12 @@ function formatAgencyList(
 
   if (subAgencyCount > 0) {
     lines.push(
-      \`\nPlus \${subAgencyCount} sub-agencies. \` +
+      \`\\nPlus \${subAgencyCount} sub-agencies. \` +
       \`Use a top-level agency slug with search_federal_register to filter results.\`,
     );
   }
 
-  return lines.join("\n");
+  return lines.join("\\n");
 }
 
 export {
