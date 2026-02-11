@@ -47,8 +47,9 @@ fi
 PLUGIN_SRC="/home/node/.shingle-plugin"
 PLUGIN_DST="/home/node/.claude/plugins/local/shingle"
 
-if [[ -d "$PLUGIN_SRC" ]] && [[ ! -d "$PLUGIN_DST" ]]; then
+if [[ -d "$PLUGIN_SRC" ]]; then
   mkdir -p "$(dirname "$PLUGIN_DST")"
+  rm -rf "$PLUGIN_DST"
   cp -r "$PLUGIN_SRC" "$PLUGIN_DST"
   echo "[shingle] Plugin installed."
 fi

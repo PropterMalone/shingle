@@ -59,7 +59,7 @@ When invoked:
 
    SYSTEM INFO:
    - Claude Code version: {if available}
-   - Plugin version: {from plugin.json}
+   - Plugin version: {from manifest.json}
    ```
 
 4. **Save the diagnostic report:**
