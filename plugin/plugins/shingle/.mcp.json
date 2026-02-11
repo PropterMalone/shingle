@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "federal-register": {
+      "command": "node",
+      "args": ["/home/node/.shingle-marketplace/plugins/shingle/servers/federal-register/dist/index.js"]
+    }
+  }
+}

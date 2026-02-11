@@ -15,25 +15,19 @@ if [[ -f "$SHINGLE_DIR/env" ]]; then
   export ANTHROPIC_API_KEY
 fi
 
-# --- Plugin installation ---
-PLUGIN_SRC="/home/node/.shingle-plugin"
-PLUGIN_DST="/home/node/.claude/plugins/local/shingle"
+# --- Plugin installation via Claude Code CLI ---
+MARKETPLACE_SRC="/home/node/.shingle-marketplace"
 
-if [[ -d "$PLUGIN_SRC" ]]; then
-  mkdir -p "$(dirname "$PLUGIN_DST")"
-  rm -rf "$PLUGIN_DST"
-  cp -r "$PLUGIN_SRC" "$PLUGIN_DST"
-  echo "[shingle] Plugin installed."
-fi
+if [[ -d "$MARKETPLACE_SRC" ]]; then
+  # Add marketplace (idempotent — re-adding updates it)
+  claude plugin marketplace add "$MARKETPLACE_SRC" 2>/dev/null \
+    && echo "[shingle] Marketplace registered." \
+    || echo "[shingle] Marketplace registration skipped (may need manual setup)."
 
-# --- Register plugin in Claude Code settings ---
-SETTINGS_FILE="/home/node/.claude/settings.json"
-if [[ -f "$SETTINGS_FILE" ]]; then
-  # Merge enabledPlugins into existing settings
-  jq '.enabledPlugins["shingle@local"] = true' "$SETTINGS_FILE" > "$SETTINGS_FILE.tmp" \
-    && mv "$SETTINGS_FILE.tmp" "$SETTINGS_FILE"
-else
-  echo '{"enabledPlugins":{"shingle@local":true}}' > "$SETTINGS_FILE"
+  # Install plugin from marketplace (idempotent — reinstalling updates it)
+  claude plugin install shingle@shingle-marketplace 2>/dev/null \
+    && echo "[shingle] Plugin installed." \
+    || echo "[shingle] Plugin install skipped (may need manual setup)."
 fi
 
 # --- First-run: CLAUDE.md assembly ---
