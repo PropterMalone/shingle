@@ -47,7 +47,10 @@ RUN chmod +x /usr/local/bin/init-firewall.sh /usr/local/bin/welcome.sh
 # Copy templates into the image
 COPY templates /home/node/.shingle-templates
 
-RUN chown -R node:node /home/node/.shingle-templates /home/node/.shingle-lib
+# Clone ed3d-plugins marketplace (network available during build, not at runtime)
+RUN git clone --depth 1 https://github.com/PropterMalone/ed3d-plugins.git /home/node/.ed3d-plugins
+
+RUN chown -R node:node /home/node/.shingle-templates /home/node/.shingle-lib /home/node/.ed3d-plugins
 
 # Switch to node user
 USER node

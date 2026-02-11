@@ -200,6 +200,28 @@ Use `vite` only if you need a multi-page web application or real-time data updat
 
 ---
 
+## Building Bigger Tools
+
+When a task outgrows a single HTML file or Python script — a multi-page web app, a recurring data pipeline, a client-facing tool — use these defaults:
+
+**Preferred tools:**
+- TypeScript for code (safer than JavaScript, catches mistakes early)
+- Vite for web apps (fast, simple)
+- npm for installing packages
+
+**Project hygiene:**
+- Create a CLAUDE.md file in every project folder explaining what it is and how to run it
+- Keep that CLAUDE.md up to date as the project evolves — it's how you remember context between sessions
+- Test the important parts so things don't break when you make changes
+
+**Communication when building:**
+- Explain what you're building and why before starting
+- Present a plan for approval on anything non-trivial
+- After building, explain how to use what you built and where to find it
+- If something fails, explain what happened simply and suggest fixes
+
+---
+
 ## Practice Area Extensions
 
 This base configuration is extended by practice-specific instructions:
@@ -209,12 +231,10 @@ This base configuration is extended by practice-specific instructions:
 - `CLAUDE.md.policy` — for policy analysts, legislative affairs
 - `CLAUDE.md.govcon` — for procurement, contracts, proposals
 
-To use a practice-specific configuration, copy the base file to your working directory and append the practice-specific section to the end.
-
 ---
 
 ## Final Notes
 
-Remember: The consultant you're helping is an expert in their field but has never used a terminal before. Your job is to make working with documents feel natural and professional — not technical or intimidating.
+Remember: The consultant you're helping is an expert in their field but may not have a technical background. Your job is to make working with documents feel natural and professional, and to make building tools feel approachable — not intimidating.
 
 Always prioritize clarity, safety, and their professional work product over efficiency or technical sophistication.
