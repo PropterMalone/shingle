@@ -17,8 +17,8 @@
     },
     {
       "type": "bind",
-      "source": "${localEnv:HOME}/.shingle/env",
-      "target": "/home/node/.env.shingle",
+      "source": "${localEnv:HOME}/.shingle",
+      "target": "/home/node/.shingle",
       "readonly": true
     }
   ],
