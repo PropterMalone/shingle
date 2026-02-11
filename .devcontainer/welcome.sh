@@ -3,11 +3,12 @@
 set -euo pipefail
 
 # --- Source API key ---
-# The env file is bind-mounted from the host (~/.shingle/env)
-# If the host file doesn't exist, Docker may mount it as an empty directory — handle both cases
-if [[ -f /home/node/.env.shingle ]]; then
+# The ~/.shingle/ directory is bind-mounted from the host (read-only)
+# Contains env (API key) and config (practice area selection)
+SHINGLE_DIR="/home/node/.shingle"
+if [[ -f "$SHINGLE_DIR/env" ]]; then
   set -a
-  source /home/node/.env.shingle
+  source "$SHINGLE_DIR/env"
   set +a
   export ANTHROPIC_API_KEY
 fi
@@ -52,38 +53,19 @@ if [[ -d "$PLUGIN_SRC" ]] && [[ ! -d "$PLUGIN_DST" ]]; then
   echo "[shingle] Plugin installed."
 fi
 
-# --- First-run: practice area selection and CLAUDE.md ---
+# --- First-run: CLAUDE.md assembly ---
 WORKSPACE_CLAUDE="/workspace/documents/CLAUDE.md"
-CONFIG_FILE="/home/node/.shingle-config"
+CONFIG_FILE="$SHINGLE_DIR/config"
 TEMPLATES_DIR="/home/node/.shingle-templates"
 
 if [[ ! -f "$WORKSPACE_CLAUDE" ]] && [[ -d "$TEMPLATES_DIR" ]]; then
-  # Check if practice area already configured
+  # Read practice area from config (written during Phase 1 host setup)
   if [[ -f "$CONFIG_FILE" ]]; then
     PRACTICE_AREA=$(cat "$CONFIG_FILE")
   else
-    echo ""
-    echo "  Welcome to Shingle! Let's set up your practice area."
-    echo ""
-    echo "  What kind of consulting do you do?"
-    echo ""
-    echo "    1) Legal (attorney, regulatory counsel)"
-    echo "    2) Audit (auditor, investigator, IG)"
-    echo "    3) Policy (policy analyst, legislative affairs)"
-    echo "    4) GovCon (procurement, contracts, proposals)"
-    echo "    5) General (skip practice-specific setup)"
-    echo ""
-    read -rp "  Enter 1-5: " choice
-
-    case "$choice" in
-      1) PRACTICE_AREA="legal" ;;
-      2) PRACTICE_AREA="audit" ;;
-      3) PRACTICE_AREA="policy" ;;
-      4) PRACTICE_AREA="govcon" ;;
-      *) PRACTICE_AREA="base" ;;
-    esac
-
-    echo "$PRACTICE_AREA" > "$CONFIG_FILE"
+    # "general" intentionally has no overlay — base template is sufficient
+    PRACTICE_AREA="general"
+    echo "[shingle] No practice area configured. Using general."
   fi
 
   # Assemble CLAUDE.md: base + overlay
@@ -91,7 +73,7 @@ if [[ ! -f "$WORKSPACE_CLAUDE" ]] && [[ -d "$TEMPLATES_DIR" ]]; then
     cp "$TEMPLATES_DIR/CLAUDE.md.base" "$WORKSPACE_CLAUDE"
 
     OVERLAY="$TEMPLATES_DIR/CLAUDE.md.$PRACTICE_AREA"
-    if [[ -f "$OVERLAY" ]] && [[ "$PRACTICE_AREA" != "base" ]]; then
+    if [[ -f "$OVERLAY" ]] && [[ "$PRACTICE_AREA" != "general" ]]; then
       echo "" >> "$WORKSPACE_CLAUDE"
       cat "$OVERLAY" >> "$WORKSPACE_CLAUDE"
     fi
