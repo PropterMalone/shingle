@@ -2,45 +2,17 @@
 # Shingle welcome script — runs on every container attach
 set -euo pipefail
 
-# --- Source API key ---
 # The ~/.shingle/ directory is bind-mounted from the host (read-only)
-# Contains env (API key) and config (practice area selection)
+# Contains config (practice area selection) and optionally env (API key)
 SHINGLE_DIR="/home/node/.shingle"
+
+# --- Source API key (if present) ---
+# Optional: clients using Claude Pro/Max authenticate via OAuth instead
 if [[ -f "$SHINGLE_DIR/env" ]]; then
   set -a
   source "$SHINGLE_DIR/env"
   set +a
   export ANTHROPIC_API_KEY
-fi
-
-# --- Check API key ---
-if [[ -z "${ANTHROPIC_API_KEY:-}" ]]; then
-  cat <<'SETUP'
-
-  ╔══════════════════════════════════════════════════════════════╗
-  ║                    API Key Not Found                        ║
-  ╠══════════════════════════════════════════════════════════════╣
-  ║                                                              ║
-  ║  To use Claude, you need an Anthropic API key.               ║
-  ║                                                              ║
-  ║  1. Go to https://console.anthropic.com/                     ║
-  ║  2. Sign up or log in                                        ║
-  ║  3. Go to API Keys and create a new key                      ║
-  ║  4. On your computer, create this file:                      ║
-  ║                                                              ║
-  ║     Windows: %USERPROFILE%\.shingle\env                      ║
-  ║     Mac:     ~/.shingle/env                                  ║
-  ║                                                              ║
-  ║  5. Put this line in the file:                               ║
-  ║                                                              ║
-  ║     ANTHROPIC_API_KEY=sk-ant-your-key-here                   ║
-  ║                                                              ║
-  ║  6. Rebuild the container (Ctrl+Shift+P → "Rebuild")         ║
-  ║                                                              ║
-  ╚══════════════════════════════════════════════════════════════╝
-
-SETUP
-  exit 0
 fi
 
 # --- Plugin installation ---
@@ -52,6 +24,16 @@ if [[ -d "$PLUGIN_SRC" ]]; then
   rm -rf "$PLUGIN_DST"
   cp -r "$PLUGIN_SRC" "$PLUGIN_DST"
   echo "[shingle] Plugin installed."
+fi
+
+# --- Register plugin in Claude Code settings ---
+SETTINGS_FILE="/home/node/.claude/settings.json"
+if [[ -f "$SETTINGS_FILE" ]]; then
+  # Merge enabledPlugins into existing settings
+  jq '.enabledPlugins["shingle@local"] = true' "$SETTINGS_FILE" > "$SETTINGS_FILE.tmp" \
+    && mv "$SETTINGS_FILE.tmp" "$SETTINGS_FILE"
+else
+  echo '{"enabledPlugins":{"shingle@local":true}}' > "$SETTINGS_FILE"
 fi
 
 # --- First-run: CLAUDE.md assembly ---
