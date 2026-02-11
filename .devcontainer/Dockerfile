@@ -44,17 +44,10 @@ COPY .devcontainer/init-firewall.sh /usr/local/bin/init-firewall.sh
 COPY .devcontainer/welcome.sh /usr/local/bin/welcome.sh
 RUN chmod +x /usr/local/bin/init-firewall.sh /usr/local/bin/welcome.sh
 
-# Copy plugin and templates into the image
-COPY plugin /home/node/.shingle-marketplace
+# Copy templates into the image
 COPY templates /home/node/.shingle-templates
 
-# Build Federal Register MCP server (install deps, compile, prune dev deps)
-RUN cd /home/node/.shingle-marketplace/plugins/shingle/servers/federal-register \
-    && npm install \
-    && npx tsc \
-    && npm prune --production
-
-RUN chown -R node:node /home/node/.shingle-marketplace /home/node/.shingle-templates /home/node/.shingle-lib
+RUN chown -R node:node /home/node/.shingle-templates /home/node/.shingle-lib
 
 # Switch to node user
 USER node

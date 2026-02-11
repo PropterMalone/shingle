@@ -15,45 +15,6 @@ if [[ -f "$SHINGLE_DIR/env" ]]; then
   export ANTHROPIC_API_KEY
 fi
 
-# --- Plugin installation (direct file copy — no CLI needed) ---
-# Replicate what `claude plugin marketplace add` + `claude plugin install` do:
-# 1. Copy marketplace to ~/.claude/plugins/marketplaces/{name}/
-# 2. Copy plugin to ~/.claude/plugins/cache/{marketplace}/{plugin}/{version}/
-# 3. Register in settings.json enabledPlugins
-MARKETPLACE_SRC="/home/node/.shingle-marketplace"
-MARKETPLACE_NAME="shingle-marketplace"
-PLUGIN_NAME="shingle"
-PLUGIN_VERSION="0.2.0"
-CLAUDE_DIR="/home/node/.claude"
-
-if [[ -d "$MARKETPLACE_SRC" ]]; then
-  # Marketplace registration
-  MP_DST="$CLAUDE_DIR/plugins/marketplaces/$MARKETPLACE_NAME"
-  mkdir -p "$MP_DST/.claude-plugin"
-  cp "$MARKETPLACE_SRC/.claude-plugin/marketplace.json" "$MP_DST/.claude-plugin/"
-  cp -r "$MARKETPLACE_SRC/plugins" "$MP_DST/"
-
-  # Plugin cache
-  CACHE_DST="$CLAUDE_DIR/plugins/cache/$MARKETPLACE_NAME/$PLUGIN_NAME/$PLUGIN_VERSION"
-  mkdir -p "$CACHE_DST/.claude-plugin"
-  cp -r "$MARKETPLACE_SRC/plugins/$PLUGIN_NAME/skills" "$CACHE_DST/"
-  cp -r "$MARKETPLACE_SRC/plugins/$PLUGIN_NAME/hooks" "$CACHE_DST/"
-  cp "$MARKETPLACE_SRC/plugins/$PLUGIN_NAME/.mcp.json" "$CACHE_DST/"
-  cp "$MARKETPLACE_SRC/plugins/$PLUGIN_NAME/.claude-plugin/plugin.json" "$CACHE_DST/.claude-plugin/"
-
-  # Register plugin in settings (merge if settings.json already exists)
-  SETTINGS_FILE="$CLAUDE_DIR/settings.json"
-  ENABLED_KEY="$PLUGIN_NAME@$MARKETPLACE_NAME"
-  if [[ -f "$SETTINGS_FILE" ]]; then
-    jq --arg key "$ENABLED_KEY" '.enabledPlugins[$key] = true' "$SETTINGS_FILE" > "$SETTINGS_FILE.tmp" \
-      && mv "$SETTINGS_FILE.tmp" "$SETTINGS_FILE"
-  else
-    printf '{"enabledPlugins":{"%s":true}}\n' "$ENABLED_KEY" > "$SETTINGS_FILE"
-  fi
-
-  echo "[shingle] Plugin installed."
-fi
-
 # --- First-run: CLAUDE.md assembly ---
 WORKSPACE_CLAUDE="/workspace/documents/CLAUDE.md"
 CONFIG_FILE="$SHINGLE_DIR/config"
@@ -93,12 +54,6 @@ cat <<'WELCOME'
   ║  Your documents are in: /workspace/documents/                ║
   ║                                                              ║
   ║  To start, type: claude                                      ║
-  ║                                                              ║
-  ║  Useful commands once Claude is running:                     ║
-  ║    /review     — Analyze a document                          ║
-  ║    /summarize  — Create an executive summary                 ║
-  ║    /draft      — Write a report, memo, or letter             ║
-  ║    /help-me    — Get diagnostic info for support             ║
   ║                                                              ║
   ╚══════════════════════════════════════════════════════════════╝
 
