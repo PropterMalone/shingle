@@ -22,6 +22,7 @@
       "readonly": true
     }
   ],
+  "capAdd": ["NET_ADMIN"],
   "remoteUser": "node",
   "customizations": {
     "vscode": {
@@ -38,6 +39,6 @@
       }
     }
   },
-  "postStartCommand": "sudo bash /usr/local/bin/init-firewall.sh",
+  "postStartCommand": "sudo bash /usr/local/bin/init-firewall.sh || echo '[firewall] Setup failed (non-fatal) — network is unrestricted'",
   "postAttachCommand": "bash /usr/local/bin/welcome.sh"
 }
