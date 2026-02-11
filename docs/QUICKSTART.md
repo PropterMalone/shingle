@@ -1,100 +1,76 @@
 # Shingle Quick Start Guide
 
-This guide will get you up and running with Shingle in about 10 minutes. No technical experience needed.
+Get your AI consulting assistant set up in about 10 minutes.
 
 ---
 
-## What You Need
+## What You'll Need
 
-Before starting, install these three programs. Click each link and follow the installer.
+- A computer running **Windows 10/11** or **macOS**
+- An internet connection
+- An **Anthropic API key** (we'll get this during setup)
 
-1. **Docker Desktop** — [Download here](https://www.docker.com/products/docker-desktop/)
-   - This runs the isolated workspace where Claude lives
-   - During install, accept all default settings
-   - After install, open Docker Desktop and let it finish starting up (you'll see a green "running" indicator)
-
-2. **VS Code** — [Download here](https://code.visualstudio.com/)
-   - This is the window where you'll interact with Claude
-   - During install, check "Add to PATH" if asked
-
-3. **Dev Containers extension** — [Install from here](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)
-   - Click the green "Install" button on the page
-   - It will open VS Code and install automatically
+You do NOT need to install anything yourself. The setup assistant handles everything.
 
 ---
 
-## Set Up Your API Key
+## Step 1: Get the Shingle Files
 
-Claude needs an API key to work. You'll do this once.
+Your support person will provide you with a Shingle folder (as a zip file or download link).
 
-1. Go to [console.anthropic.com](https://console.anthropic.com/)
-2. Create an account or sign in
-3. Click **API Keys** in the left sidebar
-4. Click **Create Key** and give it a name like "Shingle"
-5. Copy the key (it starts with `sk-ant-`)
+1. Download the file
+2. If it's a zip file, right-click it and choose **Extract All**
+3. Move the extracted folder to your **Documents** folder
+4. Rename it to **Shingle** if it isn't already
 
-Now save the key to a file on your computer:
-
-1. Open File Explorer
-2. Navigate to your home folder (usually `C:\Users\YourName`)
-3. Create a new folder called `.shingle` (note the dot at the beginning)
-   - If Windows won't let you create a folder starting with a dot, open Notepad, save a blank file as `.shingle\env`, and it will create both
-4. Inside the `.shingle` folder, create a file called `env` (no extension)
-5. Open `env` with Notepad and type this single line:
-
-```
-ANTHROPIC_API_KEY=sk-ant-paste-your-key-here
-```
-
-6. Save and close
+You should now have: `Documents\Shingle` (with folders like `.devcontainer`, `plugin`, `templates` inside)
 
 ---
 
-## Create Your Documents Folder
+## Step 2: Run the Setup Script
 
-Shingle works with documents in a specific folder on your computer.
+**On Windows:**
+1. Open the **Shingle** folder
+2. Open the **bootstrap** folder inside it
+3. Right-click `setup.ps1` and select **Run with PowerShell**
+   - If Windows asks for permission, click **Yes** or **Run anyway**
 
-1. Open File Explorer
-2. Go to `Documents` (your regular Documents folder)
-3. Create a new folder called `ClientWork`
-
-This is where you'll put documents you want Claude to help with, and where Claude will save its work.
-
----
-
-## Open Shingle
-
-1. Open VS Code
-2. Click **File** > **Open Folder**
-3. Navigate to where you saved the Shingle project and open it
-4. VS Code will show a notification in the bottom-right corner:
-   > "Folder contains a Dev Container configuration file. Reopen folder to develop in a container."
-5. Click **Reopen in Container**
-
-**First time only:** This takes 2-3 minutes while it sets up. You'll see progress in the bottom-left corner. Go get a coffee.
-
-When it's done, you'll see a terminal at the bottom of VS Code with a welcome message.
+**On Mac:**
+1. Open **Terminal** (search for it in Spotlight)
+2. Type this command and press Enter:
+   ```
+   bash ~/Documents/Shingle/bootstrap/setup.sh
+   ```
 
 ---
 
-## Start Using Claude
+## Step 3: Follow the Setup Assistant
 
-In the terminal at the bottom of VS Code, type:
+After the script runs, Claude (your setup assistant) will appear and walk you through:
 
-```
-claude
-```
+1. **Installing Docker** — creates the isolated workspace for your assistant
+2. **Installing VS Code** — the window where you'll work
+3. **Setting up your API key** — connects your assistant to Anthropic's AI
+4. **Creating your ClientWork folder** — where your documents will live
+5. **Choosing your practice area** — configures your assistant for your field
 
-Press Enter. Claude will start up and you'll see a prompt where you can type.
+Just follow along and answer the questions. The assistant explains everything.
 
-**First time:** Shingle will ask what kind of consulting you do. Pick your practice area (1-5) and press Enter. This sets up Claude with instructions specific to your work.
+**Note:** If the assistant says you need to restart your computer (this happens on Windows when Docker is first installed), go ahead and restart. Then run the setup script again — it will pick up where it left off.
 
-Now you're ready! Try one of these:
+---
 
-- Type `/review` to analyze a document
-- Type `/summarize` to create an executive summary
-- Type `/draft` to write a memo or report
-- Type `help me with [your question]` for general help
+## Step 4: Open Your Workspace
+
+Once setup is complete, the assistant will tell you to:
+
+1. **Open VS Code**
+2. Click **File > Open Folder** and select your **Shingle** folder
+3. VS Code will ask to **"Reopen in Container"** — click **Yes**
+4. Wait 2-3 minutes the first time (it's building your workspace)
+5. When you see a welcome message in the terminal, type: **claude**
+
+You're ready to work!
 
 ---
 
@@ -102,28 +78,28 @@ Now you're ready! Try one of these:
 
 | Location | What's There |
 |----------|-------------|
-| `Documents\ClientWork` (on your desktop) | Your working documents — these persist even if you rebuild the container |
-| Inside the container: `/workspace/documents/` | Same folder, accessed from inside Claude's workspace |
+| `Documents\ClientWork` (on your desktop) | Your working documents — put files here for your assistant to work with |
+| Inside the workspace: `/workspace/documents/` | Same folder, accessed from inside your assistant's workspace |
 
-Everything Claude creates goes into your `ClientWork` folder. You can open these files from your regular desktop too.
+Everything your assistant creates goes into your `ClientWork` folder. You can open these files from your regular desktop too.
 
 ---
 
 ## Troubleshooting
 
-**"API Key Not Found" message:**
-- Double-check that `C:\Users\YourName\.shingle\env` exists and contains your key
-- Make sure the file is called `env` with no extension (not `env.txt`)
-- Rebuild the container: press `Ctrl+Shift+P`, type "Rebuild", and select "Dev Containers: Rebuild Container"
+**Setup script won't run (Windows):**
+- Right-click the script, select "Properties", and check "Unblock" at the bottom
+- Or open PowerShell manually and type: `Set-ExecutionPolicy -Scope CurrentUser RemoteSigned`
+
+**"API Key Not Found" message in the workspace:**
+- The setup assistant should have saved your key. If you see this message, your key file may be missing
+- Check that the file exists: `%USERPROFILE%\.shingle\env` (Windows) or `~/.shingle/env` (Mac)
+- The file should contain one line: `ANTHROPIC_API_KEY=sk-ant-your-key-here`
 
 **Container won't start:**
-- Make sure Docker Desktop is running (check the system tray)
+- Make sure Docker Desktop is running (check the system tray / menu bar)
 - Try restarting Docker Desktop
-- Try: `Ctrl+Shift+P` > "Dev Containers: Rebuild Container Without Cache"
-
-**Claude says it can't find your documents:**
-- Make sure you have a `ClientWork` folder inside your `Documents` folder
-- Put at least one file in it before starting
+- In VS Code: press `Ctrl+Shift+P`, type "Rebuild", select "Dev Containers: Rebuild Container"
 
 **Something else went wrong:**
 - Type `/help-me` inside Claude — it will create a diagnostic report you can send to your support person
@@ -132,4 +108,4 @@ Everything Claude creates goes into your `ClientWork` folder. You can open these
 
 ## What's Next?
 
-Read [FIRST-SESSION.md](FIRST-SESSION.md) for a guided 15-minute walkthrough that shows you how to do real work with Claude.
+Read [Your First Session](FIRST-SESSION.md) for a guided 15-minute walkthrough that shows you how to do real work with your assistant.
