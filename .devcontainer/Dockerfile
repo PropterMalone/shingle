@@ -33,7 +33,7 @@ RUN npm install -g vite
 RUN npm install --prefix /home/node/.shingle-lib chart.js --silent
 
 # Configure sudo for node user (passwordless for firewall commands only)
-RUN echo 'node ALL=(ALL) NOPASSWD: /usr/sbin/iptables, /usr/sbin/ipset, /usr/sbin/ip, /usr/local/bin/init-firewall.sh' > /etc/sudoers.d/shingle-firewall \
+RUN echo 'node ALL=(ALL) NOPASSWD: /usr/sbin/iptables, /usr/sbin/ipset, /usr/sbin/ip, /usr/local/bin/init-firewall.sh, /usr/bin/bash /usr/local/bin/init-firewall.sh' > /etc/sudoers.d/shingle-firewall \
     && chmod 0440 /etc/sudoers.d/shingle-firewall
 
 # Set zsh as default shell for node user
