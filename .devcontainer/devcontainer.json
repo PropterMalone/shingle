@@ -7,7 +7,7 @@
   "mounts": [
     {
       "type": "bind",
-      "source": "${localEnv:USERPROFILE}/Documents/ClientWork",
+      "source": "${localEnv:HOME}/Documents/ClientWork",
       "target": "/workspace/documents"
     },
     {
@@ -17,7 +17,7 @@
     },
     {
       "type": "bind",
-      "source": "${localEnv:USERPROFILE}/.shingle",
+      "source": "${localEnv:HOME}/.shingle",
       "target": "/home/node/.shingle",
       "readonly": true
     }

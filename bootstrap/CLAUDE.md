@@ -70,9 +70,10 @@ If `winget` fails or is unavailable, tell the user:
 **After Docker install on Windows:** Docker Desktop requires a system restart on first install to enable WSL2/Hyper-V.
 
 Tell the user:
-> Docker needs a restart to finish setting up. Please restart your computer, then open PowerShell and run this command again:
+> Docker needs a restart to finish setting up. Please restart your computer, then run the setup script again:
 >
-> `.\bootstrap\setup.ps1`
+> **Windows:** Open PowerShell and run `.\bootstrap\setup.ps1`
+> **Mac:** Open Terminal and run `bash ~/Documents/shingle/bootstrap/setup.sh`
 >
 > I'll pick up where we left off — everything already installed will be skipped.
 
@@ -214,7 +215,7 @@ If the user runs this after everything is configured (Docker installed, VS Code 
 
 ## Troubleshooting
 
-**Docker install needs reboot (Windows):** This is normal on first install. Tell the user to restart, then re-run `.\bootstrap\setup.ps1`. The script will skip everything that's already done.
+**Docker install needs reboot (Windows):** This is normal on first install. Tell the user to restart, then re-run the setup script (`.\bootstrap\setup.ps1` on Windows, `bash ~/Documents/shingle/bootstrap/setup.sh` on Mac). The script will skip everything that's already done.
 
 **winget not recognized:** On some Windows machines, winget needs to be registered first. Tell the user:
 > Try running this command first, then run the setup script again:
