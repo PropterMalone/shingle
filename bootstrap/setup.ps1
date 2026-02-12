@@ -103,7 +103,10 @@ Set-Location "$ShingleDir\bootstrap"
 
 Write-Host ""
 Write-Host "  Starting Claude Code..." -ForegroundColor Cyan
-Write-Host "  Claude will walk you through the rest of the setup." -ForegroundColor Gray
+Write-Host ""
+Write-Host "  -------------------------------------------------------" -ForegroundColor Yellow
+Write-Host "  Type 'setup' and press Enter to get started." -ForegroundColor Yellow
+Write-Host "  -------------------------------------------------------" -ForegroundColor Yellow
 Write-Host ""
 
 claude

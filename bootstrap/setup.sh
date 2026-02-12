@@ -23,10 +23,15 @@ else
             echo "  Xcode command line tools found but git not in PATH. Trying rehash..."
         else
             echo "  Installing Xcode command line tools (includes Git)..."
-            echo "  A dialog may appear — click 'Install' and wait for it to finish."
             xcode-select --install 2>/dev/null || true
             echo ""
-            echo "  After the install finishes, run this script again:"
+            echo "  -------------------------------------------------------"
+            echo "  A dialog just opened — it may be BEHIND this window."
+            echo "  Look for 'Install Command Line Developer Tools'."
+            echo "  Click 'Install' and wait for it to finish."
+            echo "  -------------------------------------------------------"
+            echo ""
+            echo "  When it's done, run this script again:"
             echo "  bash ~/Desktop/setup.sh"
             echo ""
             exit 0
@@ -56,10 +61,10 @@ elif [[ -d "$SHINGLE_DIR" ]]; then
     echo "  Shingle folder exists but is not a Git repo."
     echo "  To get automatic updates, delete $SHINGLE_DIR and run this script again."
 else
-    echo "  Downloading Shingle..."
+    echo "  Downloading Shingle... (this may take a moment)"
     # Ensure Documents directory exists (some Mac setups don't have it)
     mkdir -p "$HOME/Documents"
-    git clone "$SHINGLE_REPO" "$SHINGLE_DIR"
+    git clone --progress "$SHINGLE_REPO" "$SHINGLE_DIR"
     if [[ ! -d "$SHINGLE_DIR" ]]; then
         echo ""
         echo "  Failed to download Shingle."
@@ -74,7 +79,7 @@ fi
 if command -v claude &>/dev/null; then
     echo "  Claude Code is already installed."
 else
-    echo "  Installing Claude Code..."
+    echo "  Installing Claude Code... (this may take a minute)"
     if command -v curl &>/dev/null; then
         curl -fsSL https://claude.ai/install.sh | sh
     else
@@ -106,7 +111,10 @@ cd "$SHINGLE_DIR/bootstrap"
 
 echo ""
 echo "  Starting Claude Code..."
-echo "  Claude will walk you through the rest of the setup."
+echo ""
+echo "  -------------------------------------------------------"
+echo "  Type 'setup' and press Enter to get started."
+echo "  -------------------------------------------------------"
 echo ""
 
 claude
