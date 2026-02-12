@@ -20,15 +20,15 @@ Your assistant can see it now. PDFs, Word docs, and text files all work.
 
 ## Step 2: Review the Document (5 minutes)
 
-In your VS Code terminal where Claude is running, type:
+In your VS Code terminal where Claude is running, ask it to review your document. Just describe what you want in plain language:
 
-```
-/review
-```
+> "Review the contract I just added to my folder"
 
-Your assistant will ask which document to review. Tell it the name of the file you just added.
+or
 
-It will read through the document and produce a structured analysis:
+> "Read through the Smith proposal and give me your analysis"
+
+Your assistant will read the document and produce a structured analysis:
 - **Overview** — what the document is and who wrote it
 - **Summary** — the key points in a few sentences
 - **Issues** — anything unclear, missing, or concerning
@@ -52,24 +52,16 @@ You can read the review two ways:
 
 ## Step 4: Draft a Memo (5 minutes)
 
-Type:
+Ask your assistant to draft something based on what it found:
 
-```
-/draft
-```
-
-Your assistant will ask:
-- What kind of document? (memo, letter, report)
-- Who's the audience?
-- What key points to cover?
-
-Example: "Draft a memo to my client summarizing the top three issues from the review we just did, with recommended next steps."
+> "Draft a memo to my client summarizing the top three issues from the review, with recommended next steps"
 
 Your assistant will:
-1. Show you an outline
-2. Ask if it looks right
-3. Write the full memo after you approve
-4. Save it in your ClientWork folder
+1. Ask clarifying questions (who's the audience? what tone?)
+2. Show you an outline
+3. Ask if it looks right
+4. Write the full memo after you approve
+5. Save it in your ClientWork folder
 
 ---
 
@@ -99,16 +91,13 @@ This is the core workflow: **read, analyze, draft**. Everything else builds on t
 
 ## What to Try Next
 
-**More commands:**
-- `/summarize` — create an executive summary of one or more documents
-- `/help-me` — get a diagnostic report if something goes wrong
-
-**Just talk to your assistant:**
+**Ask your assistant anything about your documents:**
+- "Summarize this report in two pages"
 - "What are the key differences between these two contracts?"
 - "Help me prepare interview questions based on these audit findings"
 - "Rewrite the executive summary to be more persuasive"
 
-**Your assistant can also build tools for you:**
+**Have it build tools for your practice:**
 - "Create a tracker spreadsheet for these compliance items"
 - "Build a comparison dashboard for these two budgets"
 - "Make a timeline visualization of these project milestones"
@@ -122,6 +111,6 @@ This is the core workflow: **read, analyze, draft**. Everything else builds on t
 
 ## Getting Help
 
-1. Type `/help-me` — your assistant gathers diagnostic info
+1. Describe your problem to Claude — it's trained to help troubleshoot
 2. Check [troubleshooting](QUICKSTART.md#troubleshooting) in the Quick Start Guide
-3. Send the diagnostic file to your support person
+3. If Claude can't resolve it, ask it to summarize the issue — then send that summary to your support person

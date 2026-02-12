@@ -12,8 +12,7 @@ Walk the user through setting up their computer so they can use Claude Code for 
 - **Only install these programs:** Docker Desktop, VS Code, Dev Containers extension. Nothing else.
 - **Never modify system settings** beyond what is listed in these steps.
 - **If something fails, explain clearly.** Don't retry destructively. Suggest the user contact their support person if you can't resolve it.
-- **Store the API key ONLY in ~/.shingle/env** (Windows: %USERPROFILE%\.shingle\env). Nowhere else.
-- **Don't touch the .devcontainer/, plugin/, or templates/ directories.** Those are pre-configured.
+- **Don't touch the .devcontainer/ or templates/ directories.** Those are pre-configured.
 
 ---
 
@@ -114,39 +113,25 @@ If `code` is not in PATH (Windows), tell the user:
 
 ---
 
-## Step 4: Set Up API Key
+## Step 4: Set Up Claude Account
 
-Ask: "Do you have an Anthropic API key? It starts with sk-ant-."
+Ask: "Do you have a Claude account? (Claude Pro or Claude Max subscription)"
 
-**If they have a key:**
+**If they have an account:**
 
-1. Ask them to paste it
-2. Create the config directory and save the key:
+Tell them: "Great — you'll log in when you first start your assistant inside the workspace. No setup needed here."
 
-**Windows:**
-```powershell
-New-Item -ItemType Directory -Path "$env:USERPROFILE\.shingle" -Force | Out-Null
-Set-Content -Path "$env:USERPROFILE\.shingle\env" -Value "ANTHROPIC_API_KEY=<their-key>"
-```
-
-**Mac:**
-```bash
-mkdir -p ~/.shingle
-echo "ANTHROPIC_API_KEY=<their-key>" > ~/.shingle/env
-```
-
-3. Confirm: "Your API key is saved."
-
-**If they don't have a key:**
+**If they don't have an account:**
 
 Walk them through:
-1. Go to https://console.anthropic.com/
-2. Create an account or sign in
-3. Click "API Keys" in the sidebar
-4. Click "Create Key" and name it "Shingle"
-5. Copy the key (starts with `sk-ant-`)
+1. Go to https://claude.ai/
+2. Click "Sign up" and create an account
+3. Subscribe to **Claude Max** (this gives you access to Claude Code)
+   - If your support person gave you a free trial link, use that instead
 
-Then save it as above.
+Tell them: "Your account is ready. You'll log in the first time you start the assistant in your workspace."
+
+**Note:** The login happens inside the workspace (Step 7), not here. Claude Code uses browser-based authentication — it will show a URL to open in your browser.
 
 ---
 
@@ -183,11 +168,13 @@ Save their choice:
 
 **Windows:**
 ```powershell
+New-Item -ItemType Directory -Path "$env:USERPROFILE\.shingle" -Force | Out-Null
 Set-Content -Path "$env:USERPROFILE\.shingle\config" -Value "<choice>"
 ```
 
 **Mac:**
 ```bash
+mkdir -p ~/.shingle
 echo "<choice>" > ~/.shingle/config
 ```
 
@@ -207,14 +194,14 @@ Tell the user:
 > 4. VS Code will ask to **"Reopen in Container"** — click **Yes**
 > 5. Wait about 2-3 minutes the first time (it's building your workspace)
 > 6. When you see a terminal with a welcome message, type: **claude**
->
-> That's it — your assistant is ready!
+> 7. Claude will show a URL — **open that URL in your browser** to log in
+> 8. After you authorize, you're ready to work!
 
 ---
 
 ## Already Set Up?
 
-If the user runs this after everything is configured (Docker installed, VS Code installed, API key exists at `~/.shingle/env`, config exists at `~/.shingle/config`), skip all setup steps and say:
+If the user runs this after everything is configured (Docker installed, VS Code installed, config exists at `~/.shingle/config`), skip all setup steps and say:
 
 > Everything is already set up! To start working:
 >
@@ -240,3 +227,5 @@ If the user runs this after everything is configured (Docker installed, VS Code 
 > Docker needs a Windows feature called WSL2. Please follow the instructions at:
 > https://learn.microsoft.com/en-us/windows/wsl/install
 > Then restart and try again.
+
+**Claude login shows a URL but the browser doesn't open:** This is expected inside the container. Copy the URL from the terminal and paste it into your browser (Chrome, Edge, Firefox). After authorizing, the terminal will continue automatically.

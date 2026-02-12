@@ -8,7 +8,7 @@ Get your AI consulting assistant set up in about 10 minutes.
 
 - A computer running **Windows 10/11** or **macOS**
 - An internet connection
-- An **Anthropic API key** (we'll get this during setup)
+- A **Claude account** with a Pro or Max subscription (we'll set this up during the process)
 
 You do NOT need to install anything yourself. The setup assistant handles everything.
 
@@ -23,7 +23,7 @@ Your support person will provide you with a Shingle folder (as a zip file or dow
 3. Move the extracted folder to your **Documents** folder
 4. Rename it to **Shingle** if it isn't already
 
-You should now have: `Documents\Shingle` (with folders like `.devcontainer`, `plugin`, `templates` inside)
+You should now have: `Documents\Shingle` (with folders like `.devcontainer` and `templates` inside)
 
 ---
 
@@ -50,7 +50,7 @@ After the script runs, Claude (your setup assistant) will appear and walk you th
 
 1. **Installing Docker** — creates the isolated workspace for your assistant
 2. **Installing VS Code** — the window where you'll work
-3. **Setting up your API key** — connects your assistant to Anthropic's AI
+3. **Setting up your Claude account** — connects your assistant to Anthropic's AI
 4. **Creating your ClientWork folder** — where your documents will live
 5. **Choosing your practice area** — configures your assistant for your field
 
@@ -69,6 +69,7 @@ Once setup is complete, the assistant will tell you to:
 3. VS Code will ask to **"Reopen in Container"** — click **Yes**
 4. Wait 2-3 minutes the first time (it's building your workspace)
 5. When you see a welcome message in the terminal, type: **claude**
+6. Claude will show a **login URL** — open it in your browser and authorize
 
 You're ready to work!
 
@@ -91,10 +92,9 @@ Everything your assistant creates goes into your `ClientWork` folder. You can op
 - Right-click the script, select "Properties", and check "Unblock" at the bottom
 - Or open PowerShell manually and type: `Set-ExecutionPolicy -Scope CurrentUser RemoteSigned`
 
-**"API Key Not Found" message in the workspace:**
-- The setup assistant should have saved your key. If you see this message, your key file may be missing
-- Check that the file exists: `%USERPROFILE%\.shingle\env` (Windows) or `~/.shingle/env` (Mac)
-- The file should contain one line: `ANTHROPIC_API_KEY=sk-ant-your-key-here`
+**Claude login URL doesn't open automatically:**
+- This is normal inside the container. Copy the URL shown in the terminal and paste it into your browser (Chrome, Edge, Firefox)
+- After you authorize in the browser, the terminal will continue automatically
 
 **Container won't start:**
 - Make sure Docker Desktop is running (check the system tray / menu bar)
@@ -102,7 +102,8 @@ Everything your assistant creates goes into your `ClientWork` folder. You can op
 - In VS Code: press `Ctrl+Shift+P`, type "Rebuild", select "Dev Containers: Rebuild Container"
 
 **Something else went wrong:**
-- Type `/help-me` inside Claude — it will create a diagnostic report you can send to your support person
+- Describe the problem to your assistant — it will help you troubleshoot
+- If the assistant can't resolve it, it will gather diagnostic information you can send to your support person
 
 ---
 

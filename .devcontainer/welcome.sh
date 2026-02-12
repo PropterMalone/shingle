@@ -15,38 +15,51 @@ if [[ -f "$SHINGLE_DIR/env" ]]; then
   export ANTHROPIC_API_KEY
 fi
 
-# --- Plugin installation (direct file copy from baked-in repos) ---
+# --- Plugin installation (via claude plugin CLI from baked-in repo) ---
 CLAUDE_DIR="/home/node/.claude"
 ED3D_SRC="/home/node/.ed3d-plugins"
 ED3D_MP="ed3d-plugins"
-ED3D_PLUGINS=("ed3d-plan-and-execute:1.5.0" "ed3d-house-style:1.0.0" "ed3d-basic-agents:1.0.0" "ed3d-research-agents:1.0.0")
+ED3D_PLUGINS=("ed3d-plan-and-execute" "ed3d-house-style" "ed3d-basic-agents" "ed3d-research-agents")
 
-if [[ -d "$ED3D_SRC" ]] && [[ ! -d "$CLAUDE_DIR/plugins/marketplaces/$ED3D_MP" ]]; then
-  # Copy marketplace
-  mkdir -p "$CLAUDE_DIR/plugins/marketplaces"
-  cp -r "$ED3D_SRC" "$CLAUDE_DIR/plugins/marketplaces/$ED3D_MP"
+# Check if marketplace is already registered (idempotent)
+if [[ -d "$ED3D_SRC" ]] && ! claude plugin marketplace list 2>/dev/null | grep -q "$ED3D_MP"; then
+  claude plugin marketplace add "$ED3D_SRC" 2>/dev/null \
+    && echo "[shingle] Plugin marketplace registered." \
+    || echo "[shingle] Warning: could not register plugin marketplace."
+fi
 
-  # Copy each plugin to cache and register in settings
-  ENABLED="{}"
-  for entry in "${ED3D_PLUGINS[@]}"; do
-    name="${entry%%:*}"
-    version="${entry##*:}"
-    cache_dst="$CLAUDE_DIR/plugins/cache/$ED3D_MP/$name/$version"
-    mkdir -p "$cache_dst"
-    cp -r "$ED3D_SRC/plugins/$name/." "$cache_dst/"
-    ENABLED=$(echo "$ENABLED" | jq --arg k "$name@$ED3D_MP" '.[$k] = true')
-  done
+# Install each plugin if not already installed (idempotent)
+for name in "${ED3D_PLUGINS[@]}"; do
+  if ! claude plugin list 2>/dev/null | grep -q "$name"; then
+    claude plugin install "${name}@${ED3D_MP}" 2>/dev/null \
+      && echo "[shingle] Installed $name." \
+      || echo "[shingle] Warning: could not install $name."
+  fi
+done
 
-  # Write or merge settings.json
-  SETTINGS_FILE="$CLAUDE_DIR/settings.json"
+# --- Safety hooks (always ensure they're present) ---
+SETTINGS_FILE="$CLAUDE_DIR/settings.json"
+HOOKS_SRC="/home/node/.shingle-templates/hooks.json"
+
+if [[ -f "$HOOKS_SRC" ]]; then
+  # Check if hooks have already been injected (marker key in settings)
+  HAS_HOOKS=""
   if [[ -f "$SETTINGS_FILE" ]]; then
-    jq --argjson ep "$ENABLED" '.enabledPlugins = (.enabledPlugins // {} | . + $ep)' "$SETTINGS_FILE" > "$SETTINGS_FILE.tmp" \
-      && mv "$SETTINGS_FILE.tmp" "$SETTINGS_FILE"
-  else
-    echo "$ENABLED" | jq '{enabledPlugins: .}' > "$SETTINGS_FILE"
+    HAS_HOOKS=$(jq -r '."shingle-safety-hooks" // empty' "$SETTINGS_FILE" 2>/dev/null)
   fi
 
-  echo "[shingle] Development plugins installed."
+  if [[ -z "$HAS_HOOKS" ]]; then
+    HOOKS_JSON=$(cat "$HOOKS_SRC")
+    if [[ -f "$SETTINGS_FILE" ]]; then
+      # Merge hooks into existing settings
+      jq --argjson hooks "$HOOKS_JSON" '. + {hooks: $hooks.hooks, "shingle-safety-hooks": true}' "$SETTINGS_FILE" > "$SETTINGS_FILE.tmp" \
+        && mv "$SETTINGS_FILE.tmp" "$SETTINGS_FILE"
+    else
+      # Create settings with hooks
+      echo "$HOOKS_JSON" | jq '{hooks: .hooks, "shingle-safety-hooks": true}' > "$SETTINGS_FILE"
+    fi
+    echo "[shingle] Safety hooks installed."
+  fi
 fi
 
 # --- First-run: CLAUDE.md assembly ---
@@ -88,6 +101,8 @@ cat <<'WELCOME'
   ║  Your documents are in: /workspace/documents/                ║
   ║                                                              ║
   ║  To start, type: claude                                      ║
+  ║  Choose option 1 (Claude account) when asked.                ║
+  ║  Copy the login URL into your browser to sign in.            ║
   ║                                                              ║
   ╚══════════════════════════════════════════════════════════════╝
 
