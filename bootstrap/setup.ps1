@@ -96,8 +96,10 @@ if (-not $env:HOME) {
     Write-Host "  HOME environment variable configured." -ForegroundColor Green
 }
 
-# --- Launch Claude in the project directory ---
-Set-Location $ShingleDir
+# --- Launch Claude in the bootstrap directory ---
+# Claude reads CLAUDE.md from its working directory. bootstrap/CLAUDE.md
+# contains the Phase 1 setup assistant instructions.
+Set-Location "$ShingleDir\bootstrap"
 
 Write-Host ""
 Write-Host "  Starting Claude Code..." -ForegroundColor Cyan

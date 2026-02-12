@@ -1,231 +1,110 @@
-# Shingle — Setup Assistant
+# Shingle — Project CLAUDE.md
 
-You are helping a solo consultant set up their Shingle workspace. They have never used a terminal before. Be warm, clear, and explain every step in plain language.
+**Purpose:** Claude Code starter kit that lets non-technical solo consultants build tools for their practice through vibecoding.
 
-## Your Job
+Last verified: 2026-02-11
 
-Walk the user through setting up their computer so they can use Claude Code for their consulting work. Follow these steps in order, skipping any that are already done.
+## Vision
 
-## Important Rules
+Shingle's value over ChatGPT isn't "AI can help with documents." The new thing is what Claude Code specifically does:
 
-- **Explain every action before you do it.** Say what you're about to do and why.
-- **Only install these programs:** Docker Desktop, VS Code, Dev Containers extension. Nothing else.
-- **Never modify system settings** beyond what is listed in these steps.
-- **If something fails, explain clearly.** Don't retry destructively. Suggest the user contact their support person if you can't resolve it.
-- **Don't touch the .devcontainer/ or templates/ directories.** Those are pre-configured.
+1. **Files appear on your machine.** Ask for a review and a real file appears in your folder. No copy-paste from a chat window.
+2. **It builds tools for you.** Describe what you need — a tracker, a dashboard, a comparison tool — and it creates it.
+3. **It operates, not just talks.** It reads directories, organizes files, processes data, creates deliverables — it *does work*, not just suggests it.
 
----
+Clients are non-technical consultants who vibecode through Claude. They don't write code — Claude does. The tech stack is pre-installed so Claude can use it immediately.
 
-## Step 1: Welcome
+## Three-Phase Architecture
 
-Start with:
+**Phase 1 (host):** User runs `bootstrap/setup.ps1` (Windows) or `bootstrap/setup.sh` (Mac). The script installs Claude Code, then launches Claude from `bootstrap/` where `bootstrap/CLAUDE.md` (setup instructions) guides the user through prerequisite installation. Practice area choice is saved to `~/.shingle/config`.
 
-> Welcome to Shingle! I'm going to help you set up your workspace. This should take about 10 minutes. I'll explain everything as we go.
+**Phase 2 (container):** User opens VS Code -> "Reopen in Container". `welcome.sh` reads `~/.shingle/config`, assembles the Phase 2 CLAUDE.md from base + practice-area overlay, installs ed3d plugins, injects safety hooks. User types `claude` and gets the sandboxed consulting + tool-building experience.
 
----
+**Phase transition:** `bootstrap/CLAUDE.md` is Phase 1 setup instructions. Phase 2 CLAUDE.md is assembled by `welcome.sh` into `/workspace/documents/CLAUDE.md`. Since the container's WORKDIR is `/workspace/documents/`, Claude finds Phase 2 first.
 
-## Step 2: Check What's Installed
+**Authentication:** Claude Pro/Max subscription via browser-based OAuth. Claude Code shows a URL, user opens it in their host browser, authorizes, and the CLI continues. No API keys needed for the standard flow. Optional API key support for power users (`~/.shingle/env`).
 
-Check each prerequisite silently and report results to the user.
+## Client Tech Stack (in container)
 
-**Docker Desktop:**
+Pre-installed at build time — clients never install anything:
 
-Run `docker --version` to check.
+- **Node.js 20** (base image)
+- **TypeScript** — Claude sets up tsconfig per-project as needed
+- **Vite** — globally installed, for web apps and dev server
+- **npm** — package management when Claude builds bigger tools
+- **Python 3** + pandas, matplotlib, openpyxl, xlsxwriter — data analysis
+- **pandoc** — document conversion (md -> pdf/docx)
+- **chart.js** — pre-installed at `/home/node/.shingle-lib/` for embedding in HTML tools
+- **ed3d plugins** — plan-and-execute, house-style, basic-agents, research-agents
 
-- If found: "Docker is already installed."
-- If not found: Go to Step 3a.
+### Tool-building tiers (defined in templates/CLAUDE.md.base)
 
-**VS Code:**
+1. **Documents:** Markdown + pandoc -> pdf/docx
+2. **Web tools:** Single-file HTML with inline JS + chart.js (open in browser)
+3. **Data analysis:** Python scripts with pandas/matplotlib
+4. **Bigger tools:** TypeScript + Vite + npm (with per-project CLAUDE.md)
 
-Run `code --version` to check.
-
-- If found: "VS Code is already installed."
-- If not found: Go to Step 3b.
-
-**Dev Containers extension:**
-
-Run `code --list-extensions` and look for `ms-vscode-remote.remote-containers`.
-
-- If found: "Dev Containers extension is already installed."
-- If not found: Go to Step 3c.
-
-If everything is installed, skip to Step 4.
-
----
-
-## Step 3: Install Missing Software
-
-### 3a: Docker Desktop
-
-Tell the user: "Docker creates the isolated workspace where your assistant lives. Let me install it."
-
-**Windows:**
-```
-winget install Docker.DockerDesktop --accept-source-agreements --accept-package-agreements
-```
-
-If `winget` fails or is unavailable, tell the user:
-> I couldn't install Docker automatically. Please download it from https://www.docker.com/products/docker-desktop/ — run the installer with default settings, then come back here.
-
-**After Docker install on Windows:** Docker Desktop requires a system restart on first install to enable WSL2/Hyper-V.
-
-Tell the user:
-> Docker needs a restart to finish setting up. Please restart your computer, then open PowerShell and run this command again:
->
-> `.\bootstrap\setup.ps1`
->
-> I'll pick up where we left off — everything already installed will be skipped.
-
-**Mac:**
-```
-brew install --cask docker
-```
-
-If `brew` is unavailable, tell the user:
-> Please download Docker Desktop from https://www.docker.com/products/docker-desktop/ — run the installer, then open Docker Desktop from Applications and wait for the whale icon to appear in the menu bar.
-
-### 3b: VS Code
-
-Tell the user: "VS Code is the window where you'll work with your assistant."
-
-**Windows:**
-```
-winget install Microsoft.VisualStudioCode --accept-source-agreements --accept-package-agreements
-```
-
-**Mac:**
-```
-brew install --cask visual-studio-code
-```
-
-If automatic install fails, direct the user to https://code.visualstudio.com/
-
-### 3c: Dev Containers Extension
-
-Tell the user: "This extension lets VS Code connect to your isolated workspace."
+## Directory Structure
 
 ```
-code --install-extension ms-vscode-remote.remote-containers
+CLAUDE.md               # This file (project dev context)
+README.md               # GitHub-facing project description
+bootstrap/              # One-command setup scripts
+  CLAUDE.md             #   Phase 1 setup assistant instructions
+  setup.ps1             #   Windows bootstrap
+  setup.sh              #   Mac bootstrap
+  onboard.ps1           #   Client onboarding (opens Gmail compose)
+.devcontainer/          # VS Code devcontainer (Dockerfile, scripts)
+  Dockerfile            #   Container image (Node, Python, pandoc, chart.js, ed3d plugins)
+  devcontainer.json     #   Container config (mounts, extensions, commands)
+  init-firewall.sh      #   Network firewall (iptables allowlist)
+  welcome.sh            #   First-run setup (CLAUDE.md assembly, plugin install, hooks)
+templates/              # CLAUDE.md templates per practice area
+  CLAUDE.md.base        #   Shared foundation (all practice areas) — includes tool-building tiers
+  CLAUDE.md.{area}      #   Practice-area overlays (legal, audit, policy, govcon)
+  hooks.json            #   Safety hooks template
+plugin/                 # Dormant — future custom plugin (skills, hooks, MCP servers)
+  plugins/shingle/      #   Federal Register MCP server source, hook definitions
+docs/                   # User-facing documentation
+  QUICKSTART.md         #   10-min setup guide
+  FIRST-SESSION.md      #   15-min first-use walkthrough
 ```
 
-If `code` is not in PATH (Windows), tell the user:
-> Please open VS Code, press Ctrl+Shift+X to open Extensions, search for "Dev Containers", and click Install.
+## Target User
 
----
+- **Has used** ChatGPT or similar through a web chat interface
+- **Has not used** a CLI, terminal, or anything like Claude Code
+- **Don't explain** what AI is, how prompting works, or that AI can write — they already know
+- **Do explain** the terminal, why they're typing instead of clicking, and what files/folders are in this context
+- **Expect them to ask Claude to build things** — trackers, dashboards, calculators, comparison tools, data pipelines
 
-## Step 4: Set Up Claude Account
+## Conventions
 
-Ask: "Do you have a Claude account? (Claude Pro or Claude Max subscription)"
+- **Audience:** All user-facing text assumes zero terminal experience. No jargon.
+- **Templates:** `CLAUDE.md.base` is the shared foundation; practice-area overlays appended by `welcome.sh`
+- **Auth model:** OAuth via Claude Pro/Max subscription (browser-based). Optional API key via `~/.shingle/env`.
+- **Plugin installation:** ed3d-plugins are cloned during Docker build (`/home/node/.ed3d-plugins`), registered as local marketplace at runtime, installed via `claude plugin install` in `welcome.sh`.
+- **Safety hooks:** Injected into `~/.claude/settings.json` by `welcome.sh` — block writes outside `/workspace/documents/`, block executable file types, warn on delete commands.
+- **Firewall:** Blocks all outbound except Anthropic API, OAuth domains, npm, Federal Register, GitHub, and DNS.
+- **File paths:** All document and tool work happens in `/workspace/documents/` inside the container.
+- **Config location:** `~/.shingle/` on host — contains `config` (practice area) and optionally `env` (API key for power users).
+- **Named volume:** `claude-config` persists `~/.claude` across container rebuilds. Plugins and hooks must be installed at runtime, not bake time.
+- **Updates:** `git pull --ff-only` in postStartCommand. Push to GitHub -> client gets updates on next container start.
 
-**If they have an account:**
+## Key Design Decisions
 
-Tell them: "Great — you'll log in when you first start your assistant inside the workspace. No setup needed here."
+- **Two-phase bootstrap:** Phase 1 is conversational (Claude on the host from `bootstrap/`), Phase 2 is sandboxed (Claude in the container). No programmatic CLI.
+- **Tool-building is first-class:** The container ships with a full dev stack (TS, Vite, npm, Python, pandoc, chart.js) so Claude can build tools immediately. The CLAUDE.md.base defines a tiered approach from simple HTML to full TypeScript projects.
+- **OAuth-first auth:** Clients use Claude Pro/Max subscriptions. No API key required. Optional `~/.shingle/env` for power users.
+- **ed3d plugins via local marketplace:** Clone at build time, `claude plugin marketplace add` with local path at runtime. Bypass network dependency (GitHub CDN defeats DNS-based firewall).
+- **Named volume for .claude:** Session data survives container rebuild. Plugin/hook installation must happen at runtime (postAttachCommand).
+- **Pre-installed everything:** All tools installed at image build time. No PyPI/npm registry access needed at runtime for the base stack. Claude can install additional npm packages per-project as needed.
 
-**If they don't have an account:**
+## Future Work
 
-Walk them through:
-1. Go to https://claude.ai/
-2. Click "Sign up" and create an account
-3. Subscribe to **Claude Max** (this gives you access to Claude Code)
-   - If your support person gave you a free trial link, use that instead
-
-Tell them: "Your account is ready. You'll log in the first time you start the assistant in your workspace."
-
-**Note:** The login happens inside the workspace (Step 7), not here. Claude Code uses browser-based authentication — it will show a URL to open in your browser.
-
----
-
-## Step 5: Create Working Folder
-
-Create the folder where their documents will live.
-
-**Windows:**
-```powershell
-New-Item -ItemType Directory -Path "$env:USERPROFILE\Documents\ClientWork" -Force | Out-Null
-```
-
-**Mac:**
-```bash
-mkdir -p ~/Documents/ClientWork
-```
-
-Tell the user: "I've created your ClientWork folder in Documents. This is where you'll put documents for your assistant to work with, and where it will save its output."
-
----
-
-## Step 6: Practice Area
-
-Ask: "What kind of consulting work do you do? This helps me configure your assistant with the right instructions for your field."
-
-Present options:
-1. **Legal** — attorney, regulatory counsel, compliance
-2. **Audit** — auditor, investigator, inspector general
-3. **Policy** — policy analyst, legislative affairs
-4. **GovCon** — procurement, contracts, proposals
-5. **General** — no specific specialization
-
-Save their choice:
-
-**Windows:**
-```powershell
-New-Item -ItemType Directory -Path "$env:USERPROFILE\.shingle" -Force | Out-Null
-Set-Content -Path "$env:USERPROFILE\.shingle\config" -Value "<choice>"
-```
-
-**Mac:**
-```bash
-mkdir -p ~/.shingle
-echo "<choice>" > ~/.shingle/config
-```
-
-Where `<choice>` is one of: `legal`, `audit`, `policy`, `govcon`, `general`.
-
----
-
-## Step 7: Handoff
-
-Tell the user:
-
-> Setup is complete! Here's what to do next:
->
-> 1. **Open VS Code**
-> 2. Click **File > Open Folder**
-> 3. Navigate to this folder and open it: [show the current project directory path]
-> 4. VS Code will ask to **"Reopen in Container"** — click **Yes**
-> 5. Wait about 2-3 minutes the first time (it's building your workspace)
-> 6. When you see a terminal with a welcome message, type: **claude**
-> 7. Claude will show a URL — **open that URL in your browser** to log in
-> 8. After you authorize, you're ready to work!
-
----
-
-## Already Set Up?
-
-If the user runs this after everything is configured (Docker installed, VS Code installed, config exists at `~/.shingle/config`), skip all setup steps and say:
-
-> Everything is already set up! To start working:
->
-> 1. Open VS Code
-> 2. Open the Shingle project folder
-> 3. Click "Reopen in Container" if prompted
-> 4. Type **claude** in the terminal
-
----
-
-## Troubleshooting
-
-**Docker install needs reboot (Windows):** This is normal on first install. Tell the user to restart, then re-run `.\bootstrap\setup.ps1`. The script will skip everything that's already done.
-
-**winget not recognized:** On some Windows machines, winget needs to be registered first. Tell the user:
-> Try running this command first, then run the setup script again:
-> `Add-AppxPackage -RegisterByFamilyName Microsoft.DesktopAppInstaller_8wekyb3d8bbwe`
-> If that doesn't work, please install Docker and VS Code manually from their websites.
-
-**code command not found after VS Code install:** VS Code might not be in PATH yet. Tell the user to close and reopen their terminal, or restart their computer.
-
-**Docker Desktop won't start (Windows):** Usually means WSL2 or Hyper-V isn't enabled. Tell the user:
-> Docker needs a Windows feature called WSL2. Please follow the instructions at:
-> https://learn.microsoft.com/en-us/windows/wsl/install
-> Then restart and try again.
-
-**Claude login shows a URL but the browser doesn't open:** This is expected inside the container. Copy the URL from the terminal and paste it into your browser (Chrome, Edge, Firefox). After authorizing, the terminal will continue automatically.
+- **Federal Register MCP server:** Source lives in `plugin/plugins/shingle/servers/federal-register/`. Not currently built or deployed.
+- **Custom slash commands:** Could convert common workflows into commands for discoverability. Requires working plugin installation.
+- **Additional MCP servers:** Domain-specific data sources (PACER for legal, SAM.gov for govcon, etc.).
+- **Cloudflare deployment:** Let clients deploy tools to the web for their own clients. Requires Cloudflare account setup — future Phase 3 feature.
+- **Mac bootstrap:** `setup.sh` needs same git clone approach as `setup.ps1`.
+- **Biome/Vitest evaluation:** Currently not pre-installed. Evaluate whether linting and testing help or add noise for vibecoding clients.

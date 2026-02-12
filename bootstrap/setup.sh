@@ -37,9 +37,11 @@ else
     echo "  Claude Code installed."
 fi
 
-# --- Launch Claude in the project directory ---
-PROJECT_DIR="$(cd "$(dirname "$0")/.." && pwd)"
-cd "$PROJECT_DIR"
+# --- Launch Claude in the bootstrap directory ---
+# Claude reads CLAUDE.md from its working directory. bootstrap/CLAUDE.md
+# contains the Phase 1 setup assistant instructions.
+BOOTSTRAP_DIR="$(cd "$(dirname "$0")" && pwd)"
+cd "$BOOTSTRAP_DIR"
 
 echo ""
 echo "  Starting Claude Code..."
