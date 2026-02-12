@@ -85,7 +85,7 @@ In 15 minutes, you:
 - Drafted a client memo based on those findings
 - Produced real files sitting in your folder
 
-This is the core workflow: **read, analyze, draft**. Everything else builds on this.
+This is one of two core workflows: **read, analyze, draft**. The other is **describe, build, use** — ask Claude to build tools for your practice (see below).
 
 ---
 

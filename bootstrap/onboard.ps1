@@ -17,12 +17,12 @@ if (-not (Test-Path $SetupScript)) {
     exit 1
 }
 
-$Subject = "Your AI Document Assistant — Setup Instructions"
+$Subject = "Your AI Assistant — Setup Instructions"
 
 $Body = @"
 Hi $Name,
 
-I've set up an AI document assistant for your practice. It runs on your computer, works with your files, and is configured for your field.
+I've set up an AI assistant for your practice. It runs on your computer, works with your files, and can build tools tailored to your work — trackers, dashboards, comparison tools, whatever you need.
 
 Setup takes about 10 minutes. Here's what to do:
 

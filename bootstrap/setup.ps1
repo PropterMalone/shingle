@@ -4,7 +4,7 @@
 $ErrorActionPreference = "Stop"
 
 $ShingleRepo = "https://github.com/PropterMalone/shingle.git"
-$ShingleDir = "$env:USERPROFILE\Documents\Shingle"
+$ShingleDir = "$env:USERPROFILE\Documents\shingle"
 
 Write-Host ""
 Write-Host "  Shingle Setup" -ForegroundColor Cyan

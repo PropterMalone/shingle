@@ -8,50 +8,39 @@ Get your AI consulting assistant set up in about 10 minutes.
 
 - A computer running **Windows 10/11** or **macOS**
 - An internet connection
-- A **Claude account** with a Pro or Max subscription (we'll set this up during the process)
+- The **setup.ps1** file your support person sent you
+- A **Claude account** with a Pro or Max subscription (the assistant will help you create one if needed)
 
 You do NOT need to install anything yourself. The setup assistant handles everything.
 
 ---
 
-## Step 1: Get the Shingle Files
-
-Your support person will provide you with a Shingle folder (as a zip file or download link).
-
-1. Download the file
-2. If it's a zip file, right-click it and choose **Extract All**
-3. Move the extracted folder to your **Documents** folder
-4. Rename it to **Shingle** if it isn't already
-
-You should now have: `Documents\Shingle` (with folders like `.devcontainer` and `templates` inside)
-
----
-
-## Step 2: Run the Setup Script
+## Step 1: Run the Setup Script
 
 **On Windows:**
-1. Open the **Shingle** folder
-2. Open the **bootstrap** folder inside it
-3. Right-click `setup.ps1` and select **Run with PowerShell**
+1. Save the `setup.ps1` file your support person emailed you to your Desktop
+2. Right-click it and select **Run with PowerShell**
    - If Windows asks for permission, click **Yes** or **Run anyway**
 
 **On Mac:**
 1. Open **Terminal** (search for it in Spotlight)
 2. Type this command and press Enter:
    ```
-   bash ~/Documents/Shingle/bootstrap/setup.sh
+   bash ~/Desktop/setup.sh
    ```
+
+The script will download Shingle and install Claude Code automatically.
 
 ---
 
-## Step 3: Follow the Setup Assistant
+## Step 2: Follow the Setup Assistant
 
 After the script runs, Claude (your setup assistant) will appear and walk you through:
 
 1. **Installing Docker** — creates the isolated workspace for your assistant
 2. **Installing VS Code** — the window where you'll work
 3. **Setting up your Claude account** — connects your assistant to Anthropic's AI
-4. **Creating your ClientWork folder** — where your documents will live
+4. **Creating your ClientWork folder** — where your documents and tools will live
 5. **Choosing your practice area** — configures your assistant for your field
 
 Just follow along and answer the questions. The assistant explains everything.
@@ -60,12 +49,12 @@ Just follow along and answer the questions. The assistant explains everything.
 
 ---
 
-## Step 4: Open Your Workspace
+## Step 3: Open Your Workspace
 
 Once setup is complete, the assistant will tell you to:
 
 1. **Open VS Code**
-2. Click **File > Open Folder** and select your **Shingle** folder
+2. Click **File > Open Folder** and select the **shingle** folder (in your Documents)
 3. VS Code will ask to **"Reopen in Container"** — click **Yes**
 4. Wait 2-3 minutes the first time (it's building your workspace)
 5. When you see a welcome message in the terminal, type: **claude**
@@ -79,7 +68,7 @@ You're ready to work!
 
 | Location | What's There |
 |----------|-------------|
-| `Documents\ClientWork` (on your desktop) | Your working documents — put files here for your assistant to work with |
+| `Documents\ClientWork` (on your desktop) | Your working documents and tools — put files here for your assistant to work with |
 | Inside the workspace: `/workspace/documents/` | Same folder, accessed from inside your assistant's workspace |
 
 Everything your assistant creates goes into your `ClientWork` folder. You can open these files from your regular desktop too.

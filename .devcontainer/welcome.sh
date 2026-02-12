@@ -98,11 +98,14 @@ cat <<'WELCOME'
   ║                    Welcome to Shingle                        ║
   ╠══════════════════════════════════════════════════════════════╣
   ║                                                              ║
-  ║  Your documents are in: /workspace/documents/                ║
+  ║  Your files are in: /workspace/documents/                    ║
   ║                                                              ║
   ║  To start, type: claude                                      ║
   ║  Choose option 1 (Claude account) when asked.                ║
   ║  Copy the login URL into your browser to sign in.            ║
+  ║                                                              ║
+  ║  Try asking Claude to review a document, draft a memo,       ║
+  ║  or build a tool for your practice.                          ║
   ║                                                              ║
   ╚══════════════════════════════════════════════════════════════╝
 
