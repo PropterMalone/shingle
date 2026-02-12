@@ -1,6 +1,6 @@
 #Requires -Version 5.1
 # Shingle Client Onboarding - opens a pre-filled email with setup instructions
-# Usage: .\onboard.ps1 client@email.com "Client Name" [-Mac]
+# Usage: .\onboard.ps1 client@email.com "Client Name" [-Mac] [-PracticeArea legal]
 param(
     [Parameter(Mandatory=$true, Position=0)]
     [string]$Email,
@@ -8,33 +8,34 @@ param(
     [Parameter(Position=1)]
     [string]$Name = "there",
 
-    [switch]$Mac
+    [switch]$Mac,
+
+    [ValidateSet("legal", "audit", "policy", "govcon", "general")]
+    [string]$PracticeArea = "general"
 )
 
-$ScriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
-
 if ($Mac) {
-    $SetupScript = Join-Path $ScriptDir "setup.sh"
-    $ScriptName = "setup.sh"
     $SetupSteps = @"
-1. Save the attached file (setup.sh) to your Desktop
-2. Open Terminal (search for it in Spotlight)
-3. Type this command and press Enter: bash ~/Desktop/setup.sh
-4. Follow the assistant's instructions - it will walk you through everything
+1. Open Terminal (search for "Terminal" in Spotlight, or look in Applications > Utilities)
+2. Copy and paste this command, then press Enter:
+
+   curl -fsSL https://raw.githubusercontent.com/PropterMalone/shingle/main/bootstrap/setup.sh | bash -s -- $PracticeArea
+
+3. The script will install everything automatically (about 10 minutes)
+4. When it finishes, VS Code will open -- click "Reopen in Container"
+5. After the container builds (~2 min), type "claude" in the terminal
 "@
 } else {
-    $SetupScript = Join-Path $ScriptDir "setup.ps1"
-    $ScriptName = "setup.ps1"
     $SetupSteps = @"
-1. Save the attached file (setup.ps1) to your Desktop
-2. Right-click it and select "Run with PowerShell"
-3. Follow the assistant's instructions - it will walk you through everything
-"@
-}
+1. Open PowerShell (click the Start menu and type "PowerShell", then click it)
+2. Copy and paste this command, then press Enter:
 
-if (-not (Test-Path $SetupScript)) {
-    Write-Host "  Error: $ScriptName not found at $SetupScript" -ForegroundColor Red
-    exit 1
+   `$env:SHINGLE_AREA='$PracticeArea'; irm https://raw.githubusercontent.com/PropterMalone/shingle/main/bootstrap/setup.ps1 | iex
+
+3. The script will install everything automatically (about 10 minutes)
+4. When it finishes, VS Code will open -- click "Reopen in Container"
+5. After the container builds (~2 min), type "claude" in the terminal
+"@
 }
 
 $Subject = "Your AI Assistant - Setup Instructions"
@@ -42,7 +43,7 @@ $Subject = "Your AI Assistant - Setup Instructions"
 $Body = @"
 Hi $Name,
 
-I've set up an AI assistant for your practice. It runs on your computer, works with your files, and can build tools tailored to your work - trackers, dashboards, comparison tools, whatever you need.
+I've set up an AI assistant for your practice. It runs on your computer, works with your files, and can build tools tailored to your work -- trackers, dashboards, comparison tools, whatever you need.
 
 Setup takes about 10 minutes. Here's what to do:
 
@@ -51,11 +52,13 @@ $SetupSteps
 You'll need:
 - An internet connection
 - About 10 minutes for the initial setup
-- A Claude account (the assistant will help you create one if needed)
+- A Claude account (the assistant will help you set one up on first launch)
 
-The setup will install a few programs (Docker, VS Code, Git) and create a workspace on your computer. Everything your assistant creates goes into your Documents/ClientWork folder - regular files you can open, email, or print.
+The setup installs Docker, VS Code, and Git, then creates a workspace on your computer. Everything your assistant creates goes into your Documents/ClientWork folder -- regular files you can open, email, or print.
 
-If anything goes wrong during setup, the assistant will tell you what to do. If you get stuck, just let me know and I'll walk you through it.
+If you need to restart partway through (Windows sometimes requires this for Docker), just run the same command again. It picks up where it left off.
+
+If anything goes wrong, just let me know and I'll walk you through it.
 
 Looking forward to hearing how it goes!
 "@
@@ -68,6 +71,7 @@ Start-Process $GmailUrl
 
 Write-Host ""
 Write-Host "  Gmail compose opened for $Email" -ForegroundColor Green
-Write-Host "  Email body copied to clipboard - paste it in (Ctrl+V)." -ForegroundColor Cyan
-Write-Host "  Attach this file: $SetupScript" -ForegroundColor Cyan
+Write-Host "  Practice area: $PracticeArea" -ForegroundColor Cyan
+Write-Host "  Platform: $(if ($Mac) { 'Mac' } else { 'Windows' })" -ForegroundColor Cyan
+Write-Host "  Email body copied to clipboard -- paste it in (Ctrl+V)." -ForegroundColor Cyan
 Write-Host ""

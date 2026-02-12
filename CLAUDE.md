@@ -16,11 +16,11 @@ Clients are non-technical consultants who vibecode through Claude. They don't wr
 
 ## Three-Phase Architecture
 
-**Phase 1 (host):** User runs `bootstrap/setup.ps1` (Windows) or `bootstrap/setup.sh` (Mac). The script installs Claude Code, then launches Claude from `bootstrap/` where `bootstrap/CLAUDE.md` (setup instructions) guides the user through prerequisite installation. Practice area choice is saved to `~/.shingle/config`.
+**Phase 1 (host):** User pastes a one-liner from their onboarding email. `bootstrap/setup.ps1` (Windows) or `bootstrap/setup.sh` (Mac) installs Git, Docker Desktop, VS Code, Dev Containers extension, and Claude Code. Sets practice area, creates ClientWork folder, opens VS Code at the project. No conversational setup — the script handles everything mechanically.
 
-**Phase 2 (container):** User opens VS Code -> "Reopen in Container". `welcome.sh` reads `~/.shingle/config`, assembles the Phase 2 CLAUDE.md from base + practice-area overlay, installs ed3d plugins, injects safety hooks. User types `claude` and gets the sandboxed consulting + tool-building experience.
+**Phase 2 (container):** User clicks "Reopen in Container" in VS Code. `welcome.sh` reads `~/.shingle/config`, assembles the Phase 2 CLAUDE.md from base + practice-area overlay, installs ed3d plugins, injects safety hooks. User types `claude` and gets the sandboxed consulting + tool-building experience.
 
-**Phase transition:** `bootstrap/CLAUDE.md` is Phase 1 setup instructions. Phase 2 CLAUDE.md is assembled by `welcome.sh` into `/workspace/documents/CLAUDE.md`. Since the container's WORKDIR is `/workspace/documents/`, Claude finds Phase 2 first.
+**Phase transition:** `bootstrap/CLAUDE.md` is a troubleshooter (only relevant if someone manually runs `claude` from bootstrap/). Phase 2 CLAUDE.md is assembled by `welcome.sh` into `/workspace/documents/CLAUDE.md`. Since the container's WORKDIR is `/workspace/documents/`, Claude finds Phase 2 first.
 
 **Authentication:** Claude Pro/Max subscription via browser-based OAuth. Claude Code shows a URL, user opens it in their host browser, authorizes, and the CLI continues. No API keys needed for the standard flow. Optional API key support for power users (`~/.shingle/env`).
 
@@ -50,7 +50,7 @@ Pre-installed at build time — clients never install anything:
 CLAUDE.md               # This file (project dev context)
 README.md               # GitHub-facing project description
 bootstrap/              # One-command setup scripts
-  CLAUDE.md             #   Phase 1 setup assistant instructions
+  CLAUDE.md             #   Troubleshooter (if someone runs claude here manually)
   setup.ps1             #   Windows bootstrap
   setup.sh              #   Mac bootstrap
   onboard.ps1           #   Client onboarding (opens Gmail compose)
@@ -93,7 +93,7 @@ docs/                   # User-facing documentation
 
 ## Key Design Decisions
 
-- **Two-phase bootstrap:** Phase 1 is conversational (Claude on the host from `bootstrap/`), Phase 2 is sandboxed (Claude in the container). No programmatic CLI.
+- **Two-phase bootstrap:** Phase 1 is a deterministic install script (no conversational Claude), Phase 2 is sandboxed (Claude in the container). The script handles all mechanical installs; Claude only runs inside the container.
 - **Tool-building is first-class:** The container ships with a full dev stack (TS, Vite, npm, Python, pandoc, chart.js) so Claude can build tools immediately. The CLAUDE.md.base defines a tiered approach from simple HTML to full TypeScript projects.
 - **OAuth-first auth:** Clients use Claude Pro/Max subscriptions. No API key required. Optional `~/.shingle/env` for power users.
 - **ed3d plugins via local marketplace:** Clone at build time, `claude plugin marketplace add` with local path at runtime. Bypass network dependency (GitHub CDN defeats DNS-based firewall).

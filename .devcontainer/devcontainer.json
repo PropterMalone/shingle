@@ -35,6 +35,7 @@
         "explorer.confirmDragAndDrop": true,
         "git.enabled": false,
         "terminal.integrated.fontSize": 16,
+        "terminal.integrated.defaultLocation": "editor",
         "workbench.startupEditor": "none"
       }
     }
