@@ -1,7 +1,7 @@
 #Requires -Version 5.1
 # Shingle Bootstrap - Windows
 # One-command setup: installs everything, opens VS Code at the project.
-# Practice area: set $env:SHINGLE_AREA before running (e.g. 'legal', 'audit', 'policy', 'govcon', 'general')
+# Practice area: set $env:SHINGLE_AREA before running (e.g. 'legal', 'audit', 'policy', 'govcon', 'educator', 'general')
 $ErrorActionPreference = "Stop"
 
 $ShingleRepo = "https://github.com/PropterMalone/shingle.git"

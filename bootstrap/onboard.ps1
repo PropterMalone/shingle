@@ -10,7 +10,7 @@ param(
 
     [switch]$Mac,
 
-    [ValidateSet("legal", "audit", "policy", "govcon", "general")]
+    [ValidateSet("legal", "audit", "policy", "govcon", "educator", "general")]
     [string]$PracticeArea = "general"
 )
 

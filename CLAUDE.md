@@ -1,6 +1,6 @@
 # Shingle — Project CLAUDE.md
 
-**Purpose:** Claude Code starter kit that lets non-technical solo consultants build tools for their practice through vibecoding.
+**Purpose:** Claude Code starter kit that lets non-technical professionals build tools for their work through vibecoding.
 
 Last verified: 2026-02-11
 
@@ -12,13 +12,13 @@ Shingle's value over ChatGPT isn't "AI can help with documents." The new thing i
 2. **It builds tools for you.** Describe what you need — a tracker, a dashboard, a comparison tool — and it creates it.
 3. **It operates, not just talks.** It reads directories, organizes files, processes data, creates deliverables — it *does work*, not just suggests it.
 
-Clients are non-technical consultants who vibecode through Claude. They don't write code — Claude does. The tech stack is pre-installed so Claude can use it immediately.
+Users are non-technical professionals who vibecode through Claude. They don't write code — Claude does. The tech stack is pre-installed so Claude can use it immediately.
 
 ## Three-Phase Architecture
 
 **Phase 1 (host):** User pastes a one-liner from their onboarding email. `bootstrap/setup.ps1` (Windows) or `bootstrap/setup.sh` (Mac) installs Git, Docker Desktop, VS Code, Dev Containers extension, and Claude Code. Sets practice area, creates ClientWork folder, opens VS Code at the project. No conversational setup — the script handles everything mechanically.
 
-**Phase 2 (container):** User clicks "Reopen in Container" in VS Code. `welcome.sh` reads `~/.shingle/config`, assembles the Phase 2 CLAUDE.md from base + practice-area overlay, installs ed3d plugins, injects safety hooks. User types `claude` and gets the sandboxed consulting + tool-building experience.
+**Phase 2 (container):** User clicks "Reopen in Container" in VS Code. `welcome.sh` reads `~/.shingle/config`, assembles the Phase 2 CLAUDE.md from base + practice-area overlay, installs ed3d plugins, injects safety hooks. User types `claude` and gets the sandboxed tool-building experience.
 
 **Phase transition:** `bootstrap/CLAUDE.md` is a troubleshooter (only relevant if someone manually runs `claude` from bootstrap/). Phase 2 CLAUDE.md is assembled by `welcome.sh` into `/workspace/documents/CLAUDE.md`. Since the container's WORKDIR is `/workspace/documents/`, Claude finds Phase 2 first.
 
@@ -61,7 +61,7 @@ bootstrap/              # One-command setup scripts
   welcome.sh            #   First-run setup (CLAUDE.md assembly, plugin install, hooks)
 templates/              # CLAUDE.md templates per practice area
   CLAUDE.md.base        #   Shared foundation (all practice areas) — includes tool-building tiers
-  CLAUDE.md.{area}      #   Practice-area overlays (legal, audit, policy, govcon)
+  CLAUDE.md.{area}      #   Practice-area overlays (legal, audit, policy, govcon, educator)
   hooks.json            #   Safety hooks template
 plugin/                 # Dormant — future custom plugin (skills, hooks, MCP servers)
   plugins/shingle/      #   Federal Register MCP server source, hook definitions
