@@ -19,6 +19,11 @@ You're in the bootstrap directory. Setup should have been handled by the setup s
 curl -fsSL https://raw.githubusercontent.com/PropterMalone/shingle/main/bootstrap/setup.sh | bash
 ```
 
+**Linux:**
+```
+curl -fsSL https://raw.githubusercontent.com/PropterMalone/shingle/main/bootstrap/setup-linux.sh | bash
+```
+
 **Windows (PowerShell):**
 ```
 irm https://raw.githubusercontent.com/PropterMalone/shingle/main/bootstrap/setup.ps1 | iex

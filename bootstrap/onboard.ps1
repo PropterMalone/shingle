@@ -10,11 +10,26 @@ param(
 
     [switch]$Mac,
 
+    [switch]$Linux,
+
     [ValidateSet("legal", "audit", "policy", "govcon", "educator", "general")]
     [string]$PracticeArea = "general"
 )
 
-if ($Mac) {
+if ($Linux) {
+    $SetupSteps = @"
+1. Open a terminal (search for "Terminal" in your app launcher)
+2. Copy and paste this command, then press Enter:
+
+   curl -fsSL https://raw.githubusercontent.com/PropterMalone/shingle/main/bootstrap/setup-linux.sh | bash -s -- $PracticeArea
+
+3. The script will install everything automatically (about 10 minutes)
+4. It may ask for your password (to install Docker, VS Code, etc.)
+5. If it says you were added to the "docker" group, log out and back in, then run the command again
+6. When it finishes, VS Code will open -- click "Reopen in Container"
+7. After the container builds (~2 min), type "claude" in the terminal
+"@
+} elseif ($Mac) {
     $SetupSteps = @"
 1. Open Terminal (search for "Terminal" in Spotlight, or look in Applications > Utilities)
 2. Copy and paste this command, then press Enter:
@@ -72,6 +87,6 @@ Start-Process $GmailUrl
 Write-Host ""
 Write-Host "  Gmail compose opened for $Email" -ForegroundColor Green
 Write-Host "  Practice area: $PracticeArea" -ForegroundColor Cyan
-Write-Host "  Platform: $(if ($Mac) { 'Mac' } else { 'Windows' })" -ForegroundColor Cyan
+Write-Host "  Platform: $(if ($Linux) { 'Linux' } elseif ($Mac) { 'Mac' } else { 'Windows' })" -ForegroundColor Cyan
 Write-Host "  Email body copied to clipboard -- paste it in (Ctrl+V)." -ForegroundColor Cyan
 Write-Host ""
